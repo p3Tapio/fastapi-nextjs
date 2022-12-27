@@ -1,0 +1,10 @@
+@import '../variables.scss';
+
+.home-container {
+  display: flex;
+  padding: 10px;
+  margin: 0 auto;
+  width: 80%;
+  height: 100vh;
+  background-color: $lightest-gray;
+}
