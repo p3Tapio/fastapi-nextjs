@@ -1,4 +1,4 @@
-@import './variables.scss';
+@import './fonts.scss';
 
 body {
   margin: 0;
@@ -7,6 +7,7 @@ body {
   h1 {
     font-family: $font-inter;
     font-size: $font-size-largest;
+    margin: 10px 0;
   }
 
   p {

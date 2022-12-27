@@ -6,7 +6,7 @@ const isDev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   entry: './src/index.tsx',
-  ...(isDev ? {devtool: 'eval-source-map'} : {}),
+  ...(isDev ? { devtool: 'eval-source-map' } : {}),
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -28,6 +28,12 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+        },
       },
     ],
   },

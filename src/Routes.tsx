@@ -1,8 +1,7 @@
 import React from 'react'
-import Main from './Views/Main'
-import './styles.scss'
-import Error404 from './Views/Error404'
-import Test from './Views/Test'
+import Main from './views/Main'
+import Error404 from './views/Error404'
+import Test from './views/Test'
 
 const Routes = [
   {
