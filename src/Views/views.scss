@@ -1,10 +1,21 @@
 @import '../variables.scss';
 
-.home-container {
-  display: flex;
+.main-container {
   padding: 10px;
   margin: 0 auto;
   width: 80%;
   height: 100vh;
   background-color: $lightest-gray;
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+
+  p {
+    font-weight: $font-weight-bold;
+  }
 }

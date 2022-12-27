@@ -1,8 +1,13 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Routes from './Routes'
 
-const container = document.getElementById('app')
+const router = createBrowserRouter(Routes)
+
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!)
-root.render(<App />)
+createRoot(document.getElementById('app')!).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+)
