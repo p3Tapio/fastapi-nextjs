@@ -1,9 +1,9 @@
 import React from 'react'
 import './views.scss'
 
-function Home() {
+const Home = () => {
   return (
-    <div className='home-container'>
+    <div className="home-container">
       <h1>Home</h1>
     </div>
   )

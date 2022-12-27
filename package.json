@@ -6,7 +6,7 @@
   "scripts": {
     "check-types": "tsc --noEmit --skipLibCheck",
     "lint-fix": "eslint --fix --ext .js,.ts,.tsx .",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "dev": "webpack-cli serve --mode=development --env development --open --hot",
     "build": "webpack --mode=production --env production --progress"
   },
@@ -28,8 +28,10 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
     "fork-ts-checker-webpack-plugin": "^7.2.14",
     "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.8.1",
     "sass": "^1.56.2",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
