@@ -8,7 +8,8 @@
     "lint-fix": "eslint --fix --ext .js,.ts,.tsx .",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "dev": "webpack-cli serve --mode=development --env development --open --hot",
-    "build": "NODE_ENV=production webpack --mode=production --env production --progress"
+    "build": "NODE_ENV=production webpack --mode=production --env production --progress",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
     "eslint-plugin-react": "^7.31.11",
     "fork-ts-checker-webpack-plugin": "^7.2.14",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.2",
     "mini-css-extract-plugin": "^2.7.2",
     "prettier": "^2.8.1",
     "sass": "^1.56.2",
