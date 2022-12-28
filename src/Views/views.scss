@@ -1,13 +1,17 @@
 @import '../style/variables.scss';
 @import '../style/fonts.scss';
 
-
 .main-container {
-  padding: 10px;
-  margin: 0 auto;
-  width: 80%;
-  height: 100vh;
-  background-color: $lightest-gray;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    flex: 1 0 auto;
+    margin: 0 auto;
+    width: 90%;
+    background-color: $lightest-gray;
+  }
 }
 
 .error-container {
@@ -16,8 +20,4 @@
   justify-content: center;
   height: 100vh;
   flex-direction: column;
-
-  p {
-    font-weight: $font-weight-bold;
-  }
 }

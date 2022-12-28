@@ -1,6 +1,9 @@
 @import './fonts.scss';
 
-body {
+html,
+body,
+#app {
+  height: 100%;
   margin: 0;
   padding: 0;
 
@@ -12,5 +15,7 @@ body {
 
   p {
     font-family: $font-inter;
+    font-size: $font-size-regular;
+    margin: 4px 0;
   }
 }

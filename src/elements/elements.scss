@@ -1,0 +1,15 @@
+@import '../style/variables.scss';
+
+.navbar-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: $smaller-spacing;
+}
+
+
+.footer-container {
+  background-color: $lightest-gray;
+  border-top: black solid 1px;
+  padding: $smaller-spacing;
+  margin-top: $default-spacing;
+}

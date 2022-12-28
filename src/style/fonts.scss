@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 @font-face {
   font-family: 'Inter';
   font-weight: 400;
@@ -15,5 +17,7 @@
 
 $font-inter: 'Inter', sans-serif;
 $font-size-largest: calc(36px + 1.4vw);
+$font-size-regular: calc(14px + 0.4vw);
 $font-weight-normal: 400;
 $font-weight-bold: 600;
+$color: $font-color;

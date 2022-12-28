@@ -1,14 +1,17 @@
 import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import Footer from '../elements/Footer'
+import Navbar from '../elements/Navbar'
 import './views.scss'
 
 const Main = () => {
   return (
     <div className="main-container">
-      <h1>Home</h1>
-      <p>Hello</p>
-      <Link to="/test">Test</Link>
-      <Outlet />
+      <Navbar />
+      <div className="main-container__content">
+        <Outlet />
+      </div>
+      <Footer />
     </div>
   )
 }
