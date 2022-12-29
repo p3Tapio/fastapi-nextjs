@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { AuthContext } from './context/authContext'
 import Main from './views/Main'
 import Error404 from './views/Error404'
 import Test from './views/Test'
 import AnotherView from './views/AnotherView'
-import { AuthContext } from './context/authContext'
+import SignIn from './views/SignIn'
 
 const App = () => {
   const { user } = useContext(AuthContext)
@@ -17,12 +18,16 @@ const App = () => {
       errorElement: <Error404 />,
       children: [
         {
-          path: 'page',
+          path: 'public-page',
           element: <Test />,
         },
         {
-          path: 'another',
-          element: <AnotherView />,
+          path: 'secrets', // TODO PrivateRoute component tms, tai Routes = user ? [..] : [..] tai ks loaders: https://reactrouter.com/en/main/route/loader
+          element: user ? <AnotherView /> : <Navigate to="/sign-in" replace />,
+        },
+        {
+          path: 'sign-in',
+          element: user ? <Navigate to="/" replace /> : <SignIn />,
         },
       ],
     },

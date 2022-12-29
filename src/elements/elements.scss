@@ -4,8 +4,11 @@
   display: flex;
   justify-content: flex-start;
   padding: $smaller-spacing;
-}
 
+  &__item {
+    margin-right: 20px;
+  }
+}
 
 .footer-container {
   background-color: $lightest-gray;
