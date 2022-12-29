@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
@@ -16,7 +17,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/build'),
     filename: '[name].build.js',
-    assetModuleFilename: 'assets/hash][ext][query]'
+    assetModuleFilename: 'assets/hash][ext][query]',
   },
   module: {
     rules: [
@@ -46,7 +47,7 @@ module.exports = {
     ],
   },
   devServer: {
-    port: 3000,
+    port: 3001,
     open: true,
     historyApiFallback: true,
   },
@@ -62,6 +63,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
+    }),
+    new webpack.EnvironmentPlugin({
+      API_URL: 'http://localhost:3000',
     }),
   ],
 }

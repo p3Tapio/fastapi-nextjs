@@ -9,12 +9,15 @@
     "lint": "eslint . --ext .js,.ts,.tsx",
     "dev": "webpack-cli serve --mode=development --env development --open --hot",
     "build": "NODE_ENV=production webpack --mode=production --env production --progress",
+    "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
+    "create-users": "node users.js",
     "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1"
@@ -35,7 +38,10 @@
     "fork-ts-checker-webpack-plugin": "^7.2.14",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.2",
+    "json-server": "^0.17.1",
+    "json-server-auth": "^2.1.0",
     "mini-css-extract-plugin": "^2.7.2",
+    "node-fetch": "^2.6.7",
     "prettier": "^2.8.1",
     "sass": "^1.56.2",
     "sass-loader": "^13.2.0",
