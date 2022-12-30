@@ -9,7 +9,6 @@ import SignIn from './views/SignIn'
 
 const App = () => {
   const { user } = useContext(AuthContext)
-  console.log('user', user)
 
   const Routes = [
     {

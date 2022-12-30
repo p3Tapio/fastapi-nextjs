@@ -6,19 +6,19 @@ const users = [
     username: 'Aku Ankka',
     email: 'aku.ankka@email.com',
     password: 'salasana',
-    group: ['A'],
+    group: ['Admin'],
   },
   {
     username: 'Pasi Anssi',
     email: 'pasi.anssi@email.com',
     password: 'salaisuus',
-    group: ['B'],
+    group: ['Group 1'],
   },
   {
     username: 'Hessu Hopo',
     email: 'hessu@email.com',
     password: 'salainen',
-    group: ['C'],
+    group: ['Group 2'],
   },
 ]
 

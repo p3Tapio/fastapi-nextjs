@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
+import Button from '../elements/Button'
+import HorizontalLine from '../elements/HorizontalLine'
+import TextInput from '../elements/TextInput'
 import './views.scss'
 
 const SignIn = () => {
@@ -11,42 +14,64 @@ const SignIn = () => {
 
   const handleSignIn = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault()
+
     if (email && password && email !== '' && password !== '') {
       await signIn(email, password)
-      console.log('user', user)
+
+      setEmail('')
+      setPassword('')
+      // TODO: handle wrong credentials
       if (user) {
         navigate('/secret')
       }
+      // else {
+      //
+      // }
     }
   }
+
   return (
-    <div>
-      <h1>Sign In</h1>
-      <form onSubmit={(e: React.SyntheticEvent) => handleSignIn(e)}>
-        <label htmlFor="email">
-          Email:
-          <br />
-          <input
+    <div className="signin-container">
+      <div className="signin-container__heading">
+        <h1>Sign In</h1>
+        <HorizontalLine width="80%" animated />
+      </div>
+      <form
+        className="signin-container__form"
+        onSubmit={(e: React.SyntheticEvent) => handleSignIn(e)}
+      >
+        <div className="signin-container__input-div">
+          <TextInput
             type="email"
-            id="email"
-            value={email || ''}
-            onChange={(e) => setEmail(e.target.value)}
+            label="Email"
+            value={email}
+            setValue={setEmail}
           />
-        </label>
-        <br />
-        <label htmlFor="password">
-          Password:
-          <br />
-          <input
+
+          <TextInput
             type="password"
-            id="password"
-            value={password || ''}
-            onChange={(e) => setPassword(e.target.value)}
+            label="Password"
+            value={password}
+            setValue={setPassword}
           />
-        </label>
-        <br />
-        <br />
-        <button type="submit">Sign in!</button>
+        </div>
+        <div className="signin-container__button-div">
+          <Button
+            theme="secondary"
+            label="Reset"
+            type="button"
+            onClick={() => {
+              setPassword('')
+              setEmail('')
+            }}
+          />
+          <Button
+            theme="primary"
+            label="Sign in"
+            type="submit"
+            disabled={email === '' || password === ''}
+          />
+        </div>
       </form>
     </div>
   )

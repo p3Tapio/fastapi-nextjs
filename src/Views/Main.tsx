@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Footer from '../elements/Footer'
-import Navbar from '../elements/Navbar'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 import './views.scss'
 
 const Main = () => {

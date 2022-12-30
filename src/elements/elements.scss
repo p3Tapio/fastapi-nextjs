@@ -1,18 +1,64 @@
-@import '../style/variables.scss';
+@import '../style/variables.module.scss';
+@import '../style/fonts.scss';
 
-.navbar-container {
-  display: flex;
-  justify-content: flex-start;
-  padding: $smaller-spacing;
+.button {
+  font-family: $font-inter;
+  font-size: $font-size-smaller;
+  border: 1px solid rgba($color, .4);
+  border-radius: 2px;
+  box-shadow: $shadow-button-regular;
+  min-width: 80px;
+  height: calc(22px + 0.5vw);
+  padding: 1px $default-spacing;
 
-  &__item {
-    margin-right: 20px;
+  &:disabled {
+    background-color: $lightest-gray;
+    cursor: not-allowed;
+  }
+  &:hover {
+    cursor: pointer;
+    box-shadow: $shadow-button-hover;
+  }
+}
+.button-primary {
+  background-color: rgb(255, 255, 255);
+}
+.button-secondary {
+  background-color: rgb(226, 226, 242);
+}
+
+.textinput {
+  height: 55px;
+
+  label {
+    font-family: $font-inter;
+    font-size: $font-size-smaller;
+  }
+  input {
+    margin-top: 2px;
+    height: 25px;
+    border: 1px solid rgba($color, .4);
+    border-radius: 2px;
+    padding: 0 4px;
   }
 }
 
-.footer-container {
-  background-color: $lightest-gray;
-  border-top: black solid 1px;
-  padding: $smaller-spacing;
-  margin-top: $default-spacing;
+
+@keyframes slideinLeft {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+    transform-origin: left;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    transform:scaleX(1);
+    opacity: 1;
+    transform-origin:left;
+  }
+}
+.horizontalline-animated-left {
+  animation: slideinLeft 0.4s ease-in;
 }

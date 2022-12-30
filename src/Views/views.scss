@@ -1,4 +1,4 @@
-@import '../style/variables.scss';
+@import '../style/variables.module.scss';
 @import '../style/fonts.scss';
 
 .main-container {
@@ -6,11 +6,13 @@
   display: flex;
   flex-direction: column;
 
+
   &__content {
     flex: 1 0 auto;
+    display: flex;
     margin: 0 auto;
-    width: 90%;
-    background-color: $lightest-gray;
+    justify-content: center;
+    width: 100%;
   }
 }
 
@@ -20,4 +22,76 @@
   justify-content: center;
   height: 100vh;
   flex-direction: column;
+}
+
+.signin-container {
+  background-color: $lightest-gray;
+  padding: 10px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 280px;
+  max-width: 312px;
+  margin-top: $default-spacing;
+  box-shadow: $shadow-card;
+
+  &__heading {
+    align-self: flex-start;
+    text-align: left;
+    width: 100%;
+    margin-bottom: $larger-spacing;
+  }
+
+  &__button-div {
+    display: flex;
+    justify-content:  flex-end;
+    margin-top: $larger-spacing;
+
+    button {
+      margin-left: 5px;
+    }
+  }
+
+  &__form {
+    width: 100%;
+    input {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (min-width: $breakpoint-narrow) {
+  .main-container {
+    &__content {
+      width: 90%;
+      max-width: 652px;
+      min-width: 479px;
+    }
+  }
+  .signin-container {
+    width: 65vw;
+    max-width: 384px;
+    height: calc(280px + 0.5vw);
+  }
+}
+
+@media only screen and (min-width: $breakpoint-middle) {
+  .main-container {
+    &__content {
+      width: 85%;
+      max-width: unset;
+    }
+  }
+  .signin-container {
+    width: 55vw;
+    max-width: 387px;
+    height: calc(280px + 2vw);
+  }
+}
+
+@media only screen and (min-width: $breakpoint-wide) {
+  .signin-container {
+    height: calc(280px + 3vw);
+  }
 }
