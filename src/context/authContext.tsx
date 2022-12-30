@@ -20,8 +20,12 @@ const defaultState = {
 export const AuthContext = createContext<IAuthContext>(defaultState)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<IUser | null>(null)
   const apiUrl = process.env.API_URL
+  const [user, setUser] = useState<IUser | null>(
+    window.localStorage.getItem('user')
+      ? JSON.parse(window.localStorage.getItem('user') || '')
+      : null
+  )
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem('user')
@@ -46,9 +50,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const userJson = await response.json()
       window.localStorage.setItem('user', JSON.stringify(userJson))
       setUser(userJson)
-    } else {
-      signOut()
+      return Promise.resolve()
     }
+    signOut()
+    return Promise.reject()
   }
 
   const memoizedProviderValues = useMemo(

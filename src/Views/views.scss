@@ -3,37 +3,34 @@
 
 .main-container {
   min-height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-
 
   &__content {
     flex: 1 0 auto;
-    display: flex;
     margin: 0 auto;
-    justify-content: center;
     width: 100%;
+    max-width: 840px;
   }
 }
 
-.error-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  flex-direction: column;
+@keyframes boxshadow-fadein {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: $shadow-card;
+  }
 }
 
 .signin-container {
+  animation: boxshadow-fadein 0.2s ease-in;
   background-color: $lightest-gray;
   padding: 10px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  height: 280px;
-  max-width: 312px;
-  margin-top: $default-spacing;
+  max-width: 375px;
+  margin: 10vh auto 0;
   box-shadow: $shadow-card;
 
   &__heading {
@@ -45,8 +42,8 @@
 
   &__button-div {
     display: flex;
-    justify-content:  flex-end;
-    margin-top: $larger-spacing;
+    justify-content: flex-end;
+    margin-top: $default-spacing;
 
     button {
       margin-left: 5px;
@@ -59,39 +56,43 @@
       width: 100%;
     }
   }
+
+  &__error-message {
+    text-align: right;
+    color: $warning-red;
+    font-size: $font-size-regular;
+    margin: $default-spacing 0;
+    min-height: 23px;
+  }
 }
 
 @media only screen and (min-width: $breakpoint-narrow) {
   .main-container {
     &__content {
       width: 90%;
-      max-width: 652px;
-      min-width: 479px;
+      // max-width: 576px;
     }
-  }
-  .signin-container {
-    width: 65vw;
-    max-width: 384px;
-    height: calc(280px + 0.5vw);
   }
 }
 
-@media only screen and (min-width: $breakpoint-middle) {
-  .main-container {
-    &__content {
-      width: 85%;
-      max-width: unset;
-    }
-  }
-  .signin-container {
-    width: 55vw;
-    max-width: 387px;
-    height: calc(280px + 2vw);
-  }
-}
+// @media only screen and (min-width: $breakpoint-middle) {
+//   .main-container {
+//     &__content {
+//       width: 75%;
+//     }
+//   }
+// }
 
-@media only screen and (min-width: $breakpoint-wide) {
-  .signin-container {
-    height: calc(280px + 3vw);
-  }
+// @media only screen and (min-width: $breakpoint-wide) {
+//   .signin-container {
+//     height: calc(280px + 3vw);
+//   }
+// }
+
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
 }

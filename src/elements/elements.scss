@@ -51,7 +51,7 @@
     transform-origin: left;
   }
   50% {
-    opacity: 0.2;
+    opacity: 0.1;
   }
   100% {
     transform:scaleX(1);
@@ -61,4 +61,5 @@
 }
 .horizontalline-animated-left {
   animation: slideinLeft 0.4s ease-in;
+  // animation-delay: 0.1s; shows element before animation starts running. ..
 }

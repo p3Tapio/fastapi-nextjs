@@ -1,38 +1,31 @@
 import React, { useContext } from 'react'
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AuthContext } from './context/authContext'
 import Main from './views/Main'
 import Error404 from './views/Error404'
-import Test from './views/Test'
-import AnotherView from './views/AnotherView'
-import SignIn from './views/SignIn'
+import {
+  authenticatedChildren,
+  publicChildren,
+  unauthenticatedChildren,
+} from './Routes'
 
 const App = () => {
   const { user } = useContext(AuthContext)
+
+  const children = publicChildren.concat(
+    user ? authenticatedChildren : unauthenticatedChildren
+  )
 
   const Routes = [
     {
       path: '/',
       element: <Main />,
       errorElement: <Error404 />,
-      children: [
-        {
-          path: 'public-page',
-          element: <Test />,
-        },
-        {
-          path: 'secrets', // TODO PrivateRoute component tms, tai Routes = user ? [..] : [..] tai ks loaders: https://reactrouter.com/en/main/route/loader
-          element: user ? <AnotherView /> : <Navigate to="/sign-in" replace />,
-        },
-        {
-          path: 'sign-in',
-          element: user ? <Navigate to="/" replace /> : <SignIn />,
-        },
-      ],
+      children,
     },
   ]
-  const router = createBrowserRouter(Routes)
 
+  const router = createBrowserRouter(Routes)
   return <RouterProvider router={router} />
 }
 

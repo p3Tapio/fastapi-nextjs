@@ -2,7 +2,7 @@ import React from 'react'
 
 const AnotherView = () => {
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
       <p>Another view with a lot of content</p>
       <p>
         ontrary to popular belief, Lorem Ipsum is not simply random text. It has

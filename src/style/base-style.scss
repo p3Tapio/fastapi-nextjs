@@ -8,18 +8,18 @@ html,
 body,
 #app {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   color: $font-color;
+  font-family: $font-inter;
 
   h1 {
-    font-family: $font-inter;
     font-size: $font-size-largest;
     margin: 10px 0;
   }
 
   p {
-    font-family: $font-inter;
     font-size: $font-size-regular;
     margin: 4px 0;
   }

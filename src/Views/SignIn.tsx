@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import Button from '../elements/Button'
 import HorizontalLine from '../elements/HorizontalLine'
@@ -8,29 +8,27 @@ import './views.scss'
 
 const SignIn = () => {
   const { signIn, user } = useContext(AuthContext)
-  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
 
   const handleSignIn = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault()
 
     if (email && password && email !== '' && password !== '') {
-      await signIn(email, password)
-
-      setEmail('')
-      setPassword('')
-      // TODO: handle wrong credentials
-      if (user) {
-        navigate('/secret')
+      try {
+        await signIn(email, password)
+        setEmail('')
+        setPassword('')
+      } catch {
+        setError(true)
       }
-      // else {
-      //
-      // }
     }
   }
 
-  return (
+  return user ? (
+    <Navigate to="/secrets" replace />
+  ) : (
     <div className="signin-container">
       <div className="signin-container__heading">
         <h1>Sign In</h1>
@@ -55,6 +53,9 @@ const SignIn = () => {
             setValue={setPassword}
           />
         </div>
+        <div className="signin-container__error-message">
+          {error && 'Sign in failed. Try again.'}
+        </div>
         <div className="signin-container__button-div">
           <Button
             theme="secondary"
@@ -63,6 +64,7 @@ const SignIn = () => {
             onClick={() => {
               setPassword('')
               setEmail('')
+              setError(false)
             }}
           />
           <Button
