@@ -2,5 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run lint
+npm run stylelint
 npm run check-types
 npm audit --omit=dev

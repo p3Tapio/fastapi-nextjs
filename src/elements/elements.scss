@@ -1,5 +1,5 @@
-@import '../style/variables.module.scss';
-@import '../style/fonts.scss';
+@import '../style/variables.module';
+@import '../style/fonts';
 
 .button {
   font-family: $font-inter;
@@ -15,16 +15,19 @@
     background-color: $lightest-gray;
     cursor: not-allowed;
   }
+
   &:hover {
     cursor: pointer;
     box-shadow: $shadow-button-hover;
   }
 }
+
 .button-primary {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255 255 255);
 }
+
 .button-secondary {
-  background-color: rgb(226, 226, 242);
+  background-color: rgb(226 226 242);
 }
 
 .textinput {
@@ -34,6 +37,7 @@
     font-family: $font-inter;
     font-size: $font-size-smaller;
   }
+
   input {
     margin-top: 2px;
     height: 25px;
@@ -44,22 +48,26 @@
 }
 
 
-@keyframes slideinLeft {
+@keyframes slide-in-left {
   0% {
     transform: scaleX(0);
     opacity: 0;
     transform-origin: left;
   }
+
   50% {
     opacity: 0.1;
   }
+
   100% {
     transform:scaleX(1);
     opacity: 1;
     transform-origin:left;
   }
 }
+
 .horizontalline-animated-left {
-  animation: slideinLeft 0.4s ease-in;
+  animation: slide-in-left 0.4s ease-in;
+
   // animation-delay: 0.1s; shows element before animation starts running. ..
 }

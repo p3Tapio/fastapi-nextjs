@@ -1,14 +1,14 @@
-@import './variables.module.scss';
+@import './variables.module';
 
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   font-weight: 400;
   src: url('../assets/Inter-Regular.woff2') format('woff2'),
     url('../assets/Inter-Regular.woff') format('woff');
   font-display: fallback;
 }
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   font-weight: 600;
   src: url('../assets/Inter-Bold.woff2') format('woff2'),
     url('../assets/Inter-Bold.woff') format('woff');
