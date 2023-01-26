@@ -4,7 +4,7 @@
 .button {
   font-family: $font-inter;
   font-size: $font-size-smaller;
-  border: 1px solid rgba($color, .4);
+  border: 1px solid rgba($color, 0.4);
   border-radius: 2px;
   box-shadow: $shadow-button-regular;
   min-width: 80px;
@@ -19,6 +19,11 @@
   &:hover {
     cursor: pointer;
     box-shadow: $shadow-button-hover;
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: $shadow-button-regular;
   }
 }
 
@@ -41,12 +46,11 @@
   input {
     margin-top: 2px;
     height: 25px;
-    border: 1px solid rgba($color, .4);
+    border: 1px solid rgba($color, 0.4);
     border-radius: 2px;
     padding: 0 4px;
   }
 }
-
 
 @keyframes slide-in-left {
   0% {
@@ -60,9 +64,9 @@
   }
 
   100% {
-    transform:scaleX(1);
+    transform: scaleX(1);
     opacity: 1;
-    transform-origin:left;
+    transform-origin: left;
   }
 }
 

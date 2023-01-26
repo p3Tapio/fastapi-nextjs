@@ -4,6 +4,10 @@ import { AuthProvider } from './context/authContext'
 import App from './App'
 import './style/base-style.scss'
 
+/*
+cypress, gha ?
+*/
+
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 createRoot(document.getElementById('app')!).render(
   <React.StrictMode>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import Button from '../elements/Button'
-import HorizontalLine from '../elements/HorizontalLine'
+// import HorizontalLine from '../elements/HorizontalLine'
 import TextInput from '../elements/TextInput'
 import './views.scss'
 
@@ -31,8 +31,8 @@ const SignIn = () => {
   ) : (
     <div className="signin-container">
       <div className="signin-container__heading">
-        <h1>Sign In</h1>
-        <HorizontalLine width="80%" animated />
+        <h1 className="signin-container__heading-header">Sign In</h1>
+        {/* <HorizontalLine width="80%" animated /> */}
       </div>
       <form
         className="signin-container__form"

@@ -7,3 +7,10 @@ export interface IUser {
     group: string[]
   }
 }
+
+export interface IRouteChildren {
+  label: string | false
+  path: string
+  element: React.ReactNode
+  type: 'unauthenticated' | 'authenticated' | 'public'
+}

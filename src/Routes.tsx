@@ -3,41 +3,51 @@ import { Navigate } from 'react-router-dom'
 import Test from './views/Test'
 import AnotherView from './views/AnotherView'
 import SignIn from './views/SignIn'
+import { IRouteChildren, IUser } from './types'
 
-// TODO PrivateRoute component tms, tai Routes = user ? [..] : [..] tai ks loaders: https://reactrouter.com/en/main/route/loader
+const children: IRouteChildren[] = [
+  {
+    label: 'Public page',
+    path: '/public-page',
+    element: <Test />,
+    type: 'public',
+  },
+  {
+    label: 'Sign in',
+    path: '/sign-in',
+    element: <SignIn />,
+    type: 'unauthenticated',
+  },
+  {
+    label: 'Secret page',
+    path: '/secrets',
+    element: <AnotherView />,
+    type: 'authenticated',
+  },
+]
 
-interface IRoutes {
-  path: string
-  element: React.ReactNode
+const createRouteChildren = (user: IUser | undefined) => {
+  return children.reduce<IRouteChildren[]>((acc, route) => {
+    switch (route.type) {
+      case 'authenticated':
+        acc.push(
+          user
+            ? route
+            : { ...route, label: false, element: <Navigate to="/sign-in" /> }
+        )
+        break
+      case 'unauthenticated':
+        acc.push(
+          user
+            ? { ...route, label: false, element: <Navigate to="/secrets" /> }
+            : route
+        )
+        break
+      default:
+        acc.push(route)
+    }
+    return acc
+  }, [])
 }
 
-const publicChildren: IRoutes[] = [
-  {
-    path: 'public-page',
-    element: <Test />,
-  },
-]
-
-const unauthenticatedChildren: IRoutes[] = [
-  {
-    path: 'sign-in',
-    element: <SignIn />,
-  },
-  {
-    path: 'secrets',
-    element: <Navigate to="/sign-in" replace />,
-  },
-]
-
-const authenticatedChildren: IRoutes[] = [
-  {
-    path: 'sign-in',
-    element: <Navigate to="/secrets" replace />,
-  },
-  {
-    path: 'secrets',
-    element: <AnotherView />,
-  },
-]
-
-export { publicChildren, unauthenticatedChildren, authenticatedChildren }
+export default createRouteChildren

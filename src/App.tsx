@@ -1,31 +1,35 @@
 import React, { useContext } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import { AuthContext } from './context/authContext'
-import Main from './views/Main'
 import Error404 from './views/Error404'
-import {
-  authenticatedChildren,
-  publicChildren,
-  unauthenticatedChildren,
-} from './Routes'
+import createRouteChildren from './Routes'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+
+const Layout = () => {
+  return (
+    <div className="main-container">
+      <Navbar />
+      <div className="main-container__content">
+        <Outlet />
+      </div>
+      <Footer />
+    </div>
+  )
+}
 
 const App = () => {
   const { user } = useContext(AuthContext)
-
-  const children = publicChildren.concat(
-    user ? authenticatedChildren : unauthenticatedChildren
-  )
-
-  const Routes = [
+  const children = createRouteChildren(user)
+  const router = createBrowserRouter([
     {
       path: '/',
-      element: <Main />,
+      element: <Layout />,
       errorElement: <Error404 />,
       children,
     },
-  ]
+  ])
 
-  const router = createBrowserRouter(Routes)
   return <RouterProvider router={router} />
 }
 

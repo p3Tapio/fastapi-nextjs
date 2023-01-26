@@ -15,18 +15,18 @@
   }
 }
 
-@keyframes boxshadow-fadein {
-  0% {
-    box-shadow: none;
-  }
-
-  100% {
-    box-shadow: $shadow-card;
-  }
-}
-
 .signin-container {
-  animation: boxshadow-fadein 0.2s ease-in;
+  @keyframes boxshadow-fade-in {
+    0% {
+      box-shadow: none;
+    }
+
+    100% {
+      box-shadow: $shadow-card;
+    }
+  }
+
+  animation: boxshadow-fade-in 0.2s ease-in;
   background-color: $lightest-gray;
   padding: 10px 20px 20px;
   width: 100%;
@@ -39,6 +39,20 @@
     text-align: left;
     width: 100%;
     margin-bottom: $larger-spacing;
+
+    &-header {
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      animation: fade-in 0.5s ease-out;
+    }
   }
 
   &__button-div {
