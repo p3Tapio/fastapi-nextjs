@@ -9,6 +9,8 @@ jobs:
   test_job:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
       - name: Install dependencies
         run: npm install
       - name: Build the app
