@@ -1,0 +1,14 @@
+name: Actio is action in latin
+
+on:
+  pull_request: 
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test_job:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Say hello
+        run: |
+          echo "Hello GHA!"
