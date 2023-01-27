@@ -1,7 +1,7 @@
 name: Actio is action in latin
 
 on:
-  pull_request: 
+  pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
 
@@ -15,6 +15,7 @@ jobs:
           node-version: '16'
       - name: Install dependencies
         run: npm install
+      - uses: actions/checkout@v3
       - name: Build the app
         run: npm run build
       - name: Create users
