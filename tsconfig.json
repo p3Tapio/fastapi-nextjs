@@ -9,13 +9,10 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "allowJs": true,
-    "baseUrl": "./src",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "downlevelIteration": true,
-    "paths": {
-      "*": ["src/*"]
-    },
+    "baseUrl": "src",
     "lib": ["ES6", "dom", "dom.iterable"],
     "sourceMap": true,
   },
