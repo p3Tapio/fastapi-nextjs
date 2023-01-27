@@ -1,5 +1,7 @@
 const fetch = require('node-fetch')
-const fsp = require('fs').promises
+const jsonServer = require('json-server')
+const auth = require('json-server-auth')
+const fsp = require('fs')
 
 const users = [
   {
@@ -22,19 +24,26 @@ const users = [
   },
 ]
 
-const createUsers = () => {
-  fsp.writeFile('./db.json', '{"users": []}')
-  setTimeout(() => {
+const createUsers = async (server) => {
+  await Promise.all(
     users.map(async (u) => {
-      const r = fetch('http://localhost:3000/register', {
+      const r = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(u),
       })
       const j = await r.json()
-      console.log(j)
+      console.log(`User ${j.user.username} created 😀`)
     })
-  }, 3000) // wait for json-server to notice change in db.json ...
+  )
+  server.close()
 }
 
-createUsers()
+fsp.writeFileSync('./db.json', '{"users": []}')
+const app = jsonServer.create()
+const router = jsonServer.router('db.json')
+app.db = router.db
+app.use(auth)
+app.use(router)
+const server = app.listen(3000)
+createUsers(server)
