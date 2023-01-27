@@ -19,6 +19,6 @@
     "lib": ["ES6", "dom", "dom.iterable"],
     "sourceMap": true,
   },
-  "exclude": ["node_modules", "build", ".vscode"],
+  "exclude": ["node_modules", "build", ".vscode", "cypress", "cypress.config.ts"],
   "include": ["src"]
 }

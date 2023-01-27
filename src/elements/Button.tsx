@@ -2,6 +2,7 @@ import React from 'react'
 import './elements.scss'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  id: string
   type: 'button' | 'submit'
   theme: 'primary' | 'secondary' | 'warning'
   label: string
@@ -15,9 +16,11 @@ const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
   disabled,
+  id,
 }) => {
   return (
     <button
+      id={id}
       type={type === 'button' ? 'button' : 'submit'}
       className={`button button-${theme}`}
       onClick={onClick}

@@ -9,6 +9,11 @@ jobs:
   test_job:
     runs-on: ubuntu-20.04
     steps:
-      - name: Say hello
-        run: |
-          echo "Hello GHA!"
+      - name: Install dependencies
+        run: npm i
+      - name: Build the app
+        run: npm run build
+      - name: Create users
+        run: npm run create-users
+      - name: Run Cypress e2e
+        run: npm run cypress:e2e

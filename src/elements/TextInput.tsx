@@ -1,6 +1,7 @@
 import React from 'react'
 
 interface ITextInputProps {
+  id: string
   type: 'email' | 'text' | 'password'
   label: string
   value: string
@@ -8,6 +9,7 @@ interface ITextInputProps {
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
+  id,
   type,
   label,
   value,
@@ -15,12 +17,12 @@ const TextInput: React.FC<ITextInputProps> = ({
 }) => {
   return (
     <div className="textinput">
-      <label htmlFor={label}>
+      <label htmlFor={id}>
         {label}
         <br />
         <input
           type={type}
-          id={label}
+          id={id}
           value={value || ''}
           onChange={(e) => setValue(e.target.value)}
         />
