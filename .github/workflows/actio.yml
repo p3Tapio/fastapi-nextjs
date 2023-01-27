@@ -8,12 +8,9 @@ on:
 jobs:
   test_job:
     runs-on: ubuntu-20.04
-      defaults:
-        run:
-          working-directory: ./
     steps:
       - name: Install dependencies
-        run: npm i
+        run: npm install
       - name: Build the app
         run: npm run build
       - name: Create users
