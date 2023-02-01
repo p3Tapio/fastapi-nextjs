@@ -2,3 +2,4 @@ node_modules
 build
 db.json
 cypress/videos
+.DS_Store
