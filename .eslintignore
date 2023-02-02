@@ -1,3 +1,5 @@
 webpack.config.js
 build/*
 users.js
+cypress/*
+cypress.config.ts

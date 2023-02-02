@@ -40,6 +40,7 @@ const SignIn = () => {
       >
         <div className="signin-container__input-div">
           <TextInput
+            id="signin-email"
             type="email"
             label="Email"
             value={email}
@@ -47,6 +48,7 @@ const SignIn = () => {
           />
 
           <TextInput
+            id="signin-password"
             type="password"
             label="Password"
             value={password}
@@ -58,6 +60,7 @@ const SignIn = () => {
         </div>
         <div className="signin-container__button-div">
           <Button
+            id="signin-reset"
             theme="secondary"
             label="Reset"
             type="button"
@@ -68,6 +71,7 @@ const SignIn = () => {
             }}
           />
           <Button
+            id="signin-submit"
             theme="primary"
             label="Sign in"
             type="submit"
