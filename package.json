@@ -17,7 +17,7 @@
     "serve:build": "serve -s build -p 3001",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:e2e": "concurrently \"npm run json-server\" \"npm run serve:build\" \"npm run cypress:run\" --kill-others"
+    "cypress:e2e": "concurrently --success last \"npm run json-server\" \"npm run serve:build\" \"npm run cypress:run\""
   },
   "keywords": [],
   "author": "",
