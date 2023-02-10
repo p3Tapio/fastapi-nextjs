@@ -4,4 +4,5 @@
 npm run lint
 npm run stylelint
 npm run check-types
+echo 'Audit prod 🔦'
 npm audit --omit=dev
