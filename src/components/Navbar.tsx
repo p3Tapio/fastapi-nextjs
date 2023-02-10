@@ -5,8 +5,8 @@ import createRouteChildren from '../Routes'
 import './components.scss'
 
 const Navbar = () => {
-  const { user, signOut } = useContext(AuthContext)
-  const routes = createRouteChildren(user)
+  const { authDetails, signOut } = useContext(AuthContext)
+  const routes = createRouteChildren(authDetails)
 
   return (
     <div className="navbar-container">
@@ -24,7 +24,7 @@ const Navbar = () => {
             </div>
           )
       )}
-      {user && (
+      {authDetails && (
         <div className="navbar-container__item">
           <button type="button" onClick={signOut}>
             Sign out

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-import Test from './views/Test'
-import AnotherView from './views/AnotherView'
-import SignIn from './views/SignIn'
-import { IRouteChildren, IUser } from './types'
+import Test from 'views/Test'
+import SignIn from 'views/SignIn'
+import UserPage from 'views/User'
+import { IAuthDetails, IRouteChildren } from './types'
 
 const children: IRouteChildren[] = [
   {
@@ -19,27 +19,27 @@ const children: IRouteChildren[] = [
     type: 'unauthenticated',
   },
   {
-    label: 'Secret page',
-    path: '/secrets',
-    element: <AnotherView />,
+    label: 'User page',
+    path: '/user-page',
+    element: <UserPage />,
     type: 'authenticated',
   },
 ]
 
-const createRouteChildren = (user: IUser | undefined) => {
+const createRouteChildren = (authDetails: IAuthDetails | undefined) => {
   return children.reduce<IRouteChildren[]>((acc, route) => {
     switch (route.type) {
       case 'authenticated':
         acc.push(
-          user
+          authDetails
             ? route
             : { ...route, label: false, element: <Navigate to="/sign-in" /> }
         )
         break
       case 'unauthenticated':
         acc.push(
-          user
-            ? { ...route, label: false, element: <Navigate to="/secrets" /> }
+          authDetails
+            ? { ...route, label: false, element: <Navigate to="/user-page" /> }
             : route
         )
         break

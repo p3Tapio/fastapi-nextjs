@@ -12,14 +12,14 @@ module.exports = {
   ...(isDev ? { devtool: 'eval-source-map' } : {}),
 
   resolve: {
-    preferRelative: true,
     extensions: ['.ts', '.tsx', '.js'],
+    modules: ['node_modules', path.join(__dirname, 'src')],
   },
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].build.js',
     assetModuleFilename: 'assets/hash][ext][query]',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
