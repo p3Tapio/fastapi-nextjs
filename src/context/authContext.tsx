@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react'
-import { IUser } from '../types'
+import { IAuthDetails } from '../types'
 
 interface IAuthContext {
-  user: IUser | undefined
+  authDetails: IAuthDetails | undefined
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => void
 }
@@ -12,7 +12,7 @@ interface AuthProviderProps {
 }
 
 const defaultState = {
-  user: undefined,
+  authDetails: undefined,
   signIn: async () => {},
   signOut: () => {},
 }
@@ -21,19 +21,19 @@ export const AuthContext = createContext<IAuthContext>(defaultState)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const apiUrl = process.env.API_URL
-  const [user, setUser] = useState<IUser | undefined>(
-    window.localStorage.getItem('user')
-      ? JSON.parse(window.localStorage.getItem('user') || '')
+  const [authDetails, setUser] = useState<IAuthDetails | undefined>(
+    window.localStorage.getItem('auth-details')
+      ? JSON.parse(window.localStorage.getItem('auth-details') || '')
       : undefined
   )
 
   useEffect(() => {
-    const storedUser = window.localStorage.getItem('user')
+    const storedUser = window.localStorage.getItem('auth-details')
     setUser(storedUser ? JSON.parse(storedUser) : undefined)
   }, [])
 
   const signOut = () => {
-    window.localStorage.removeItem('user')
+    window.localStorage.removeItem('auth-details')
     setUser(undefined)
   }
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     if (response.ok) {
       const userJson = await response.json()
-      window.localStorage.setItem('user', JSON.stringify(userJson))
+      window.localStorage.setItem('auth-details', JSON.stringify(userJson))
       setUser(userJson)
       return Promise.resolve()
     }
@@ -57,8 +57,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   const memoizedProviderValues = useMemo(
-    () => ({ user, signIn, signOut }),
-    [user]
+    () => ({ authDetails, signIn, signOut }),
+    [authDetails]
   )
 
   return (

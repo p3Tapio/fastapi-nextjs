@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IAuthDetails {
   accessToken: string
   user: {
     id: number

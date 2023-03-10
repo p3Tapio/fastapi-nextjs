@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
-import Button from '../elements/Button'
+import { AuthContext } from 'context/authContext'
+import Button from 'elements/Button'
 // import HorizontalLine from '../elements/HorizontalLine'
-import TextInput from '../elements/TextInput'
+import TextInput from 'elements/TextInput'
 import './views.scss'
 
 const SignIn = () => {
-  const { signIn, user } = useContext(AuthContext)
+  const { signIn, authDetails } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
@@ -26,8 +26,8 @@ const SignIn = () => {
     }
   }
 
-  return user ? (
-    <Navigate to="/secrets" replace />
+  return authDetails ? (
+    <Navigate to="/user-page" replace />
   ) : (
     <div className="signin-container">
       <div className="signin-container__heading">

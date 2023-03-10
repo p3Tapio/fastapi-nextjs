@@ -19,8 +19,8 @@ const Layout = () => {
 }
 
 const App = () => {
-  const { user } = useContext(AuthContext)
-  const children = createRouteChildren(user)
+  const { authDetails } = useContext(AuthContext)
+  const children = createRouteChildren(authDetails)
   const router = createBrowserRouter([
     {
       path: '/',
