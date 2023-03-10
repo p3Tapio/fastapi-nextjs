@@ -4,22 +4,36 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const isDev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
-  entry: './src/index.tsx',
   ...(isDev ? { devtool: 'eval-source-map' } : {}),
-
+  entry: {
+    index: './src/index.tsx',
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     modules: ['node_modules', path.join(__dirname, 'src')],
   },
   output: {
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
+    assetModuleFilename: '[assets/hash][ext][query]',
     path: path.join(__dirname, 'build'),
-    filename: '[name].build.js',
-    assetModuleFilename: 'assets/hash][ext][query]',
-    publicPath: '/',
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   module: {
     rules: [
@@ -55,7 +69,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({
-      cleanAfterEveryBuildPatterns: ['**/*.LICENSE.txt'],
+      cleanAfterEveryBuildPatterns: ['**/*.js.LICENSE.txt'],
       protectWebpackAssets: false,
     }),
     new ForkTsCheckerWebpackPlugin(), // For typeChecking - recommended to use, if ts-loader transpileOnly is set true
@@ -64,7 +78,9 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[id].css',
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: process.env.STATS || 'disabled',
     }),
     new webpack.EnvironmentPlugin({
       API_URL: 'http://localhost:3000',

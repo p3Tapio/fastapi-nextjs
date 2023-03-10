@@ -12,6 +12,7 @@
     "webpack:serve": "webpack-cli serve --mode=development --env development --open --hot",
     "dev": "npm-run-all -p webpack:serve json-server",
     "build": "NODE_ENV=production webpack --mode=production --env production --progress",
+    "analyze": "STATS=server webpack --mode=production --profile",
     "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
     "create-users": "node users.js",
     "prepare": "husky install",
@@ -60,6 +61,7 @@
     "stylelint-config-standard-scss": "^6.1.0",
     "ts-loader": "^9.4.2",
     "webpack": "^5.75.0",
+    "webpack-bundle-analyzer": "^4.7.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
   }
