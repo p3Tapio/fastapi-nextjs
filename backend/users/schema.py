@@ -1,6 +1,15 @@
 from pydantic import BaseModel, EmailStr
 
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: str | None = None
+
+
 class UserBase(BaseModel):
     email: EmailStr
 
@@ -16,14 +25,8 @@ class User(UserBase):
         orm_mode = True
 
 
+class UserResponse(User):
+    token: Token
+
 class UserInDb(User):
     password_hash: str
-
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-
-class TokenData(BaseModel):
-    username: str | None = None
