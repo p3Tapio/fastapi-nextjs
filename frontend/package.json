@@ -15,7 +15,7 @@
     "analyze": "STATS=server webpack --mode=production --profile",
     "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
     "create-users": "node users.js",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install",
     "serve:build": "serve -s build -p 3001",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
