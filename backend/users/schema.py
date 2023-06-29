@@ -14,7 +14,12 @@ class UserBase(BaseModel):
     email: EmailStr
 
 
-class UserRequest(UserBase):
+class UserCreate(UserBase):
+    username: str
+    password: str
+
+
+class UserSignin(UserBase):
     password: str
 
 
@@ -26,7 +31,9 @@ class User(UserBase):
 
 
 class UserResponse(User):
+    username: str
     token: Token
+
 
 class UserInDb(User):
     password_hash: str

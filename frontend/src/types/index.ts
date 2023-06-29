@@ -1,11 +1,13 @@
+interface Token {
+  access_token: string
+  token_type: string
+}
 export interface IAuthDetails {
-  accessToken: string
-  user: {
-    id: number
-    email: string
-    username: string
-    group: string[]
-  }
+  id: number
+  email: string
+  username: string
+  token: Token
+  // group: string[]
 }
 
 export interface IRouteChildren {

@@ -7,7 +7,7 @@ user_router = APIRouter(prefix="/user")
 
 
 @user_router.post("/register", response_model=schema.User)
-def create_user(user: schema.UserRequest, db: Session = Depends(get_db)):
+def create_user(user: schema.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db=db, email=user.email)
     if db_user:
         raise HTTPException(
@@ -16,8 +16,8 @@ def create_user(user: schema.UserRequest, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 
-@user_router.post("/login", response_model=schema.UserResponse)
-def login_user(user: schema.UserRequest, db: Session = Depends(get_db)):
+@user_router.post("/signin", response_model=schema.UserResponse)
+def login_user(user: schema.UserSignin, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db=db, email=user.email)
     if not db_user:
         raise HTTPException(

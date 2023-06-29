@@ -21,7 +21,7 @@ export const AuthContext = createContext<IAuthContext>(defaultState)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const apiUrl = process.env.API_URL
-  const [authDetails, setUser] = useState<IAuthDetails | undefined>(
+  const [authDetails, setAuthDetails] = useState<IAuthDetails | undefined>(
     window.localStorage.getItem('auth-details')
       ? JSON.parse(window.localStorage.getItem('auth-details') || '')
       : undefined
@@ -29,16 +29,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem('auth-details')
-    setUser(storedUser ? JSON.parse(storedUser) : undefined)
+    setAuthDetails(storedUser ? JSON.parse(storedUser) : undefined)
   }, [])
 
   const signOut = () => {
     window.localStorage.removeItem('auth-details')
-    setUser(undefined)
+    setAuthDetails(undefined)
   }
 
   const signIn = async (email: string, password: string): Promise<void> => {
-    const response = await fetch(`${apiUrl}/login`, {
+    const response = await fetch(`${apiUrl}/user/signin`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json;charset=UTF-8',
@@ -49,9 +49,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (response.ok) {
       const userJson = await response.json()
       window.localStorage.setItem('auth-details', JSON.stringify(userJson))
-      setUser(userJson)
+      setAuthDetails(userJson)
       return Promise.resolve()
     }
+
     signOut()
     return Promise.reject()
   }

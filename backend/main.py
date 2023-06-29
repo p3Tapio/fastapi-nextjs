@@ -21,4 +21,4 @@ app.include_router(user_router)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello"}
+    return {"message": "Hello, im alive!"}
