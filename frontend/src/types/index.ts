@@ -1,4 +1,4 @@
-interface Token {
+export interface IToken {
   access_token: string
   token_type: string
 }
@@ -6,7 +6,7 @@ export interface IAuthDetails {
   id: number
   email: string
   username: string
-  token: Token
+  token: IToken
   // group: string[]
 }
 

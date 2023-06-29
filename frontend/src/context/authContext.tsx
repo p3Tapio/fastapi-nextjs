@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { IAuthDetails } from '../types'
+import { isAuthDetails } from '../types/utils'
 
 interface IAuthContext {
   authDetails: IAuthDetails | undefined
@@ -48,8 +49,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     if (response.ok) {
       const userJson = await response.json()
+      if (!isAuthDetails(userJson)) return Promise.reject()
+
       window.localStorage.setItem('auth-details', JSON.stringify(userJson))
       setAuthDetails(userJson)
+
       return Promise.resolve()
     }
 
