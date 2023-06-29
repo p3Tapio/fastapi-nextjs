@@ -7,7 +7,17 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const isDev = process.env.NODE_ENV !== 'production'
+const environment = process.env.NODE_ENV
+const isDev = environment !== 'production'
+
+const getApiUrl = (env) => {
+  switch (env) {
+    case 'test':
+      return 'http://localhost:3000'
+    default:
+      return 'http://localhost:8000'
+  }
+}
 
 module.exports = {
   ...(isDev ? { devtool: 'eval-source-map' } : {}),
@@ -83,7 +93,7 @@ module.exports = {
       analyzerMode: process.env.STATS || 'disabled',
     }),
     new webpack.EnvironmentPlugin({
-      API_URL: 'http://localhost:3000',
+      API_URL: getApiUrl(environment),
     }),
   ],
 }
