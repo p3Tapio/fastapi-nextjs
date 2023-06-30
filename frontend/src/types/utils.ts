@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-import { IAuthDetails, IToken } from '.'
+import { IAuthDetails, IUser } from '.'
 
 const isString = (text: unknown): text is string => {
   return (
@@ -13,11 +13,12 @@ const isNumber = (no: unknown): no is number => {
   return !Number.isNaN(Number(no))
 }
 
-export const isToken = (object: unknown): boolean => {
+export const isUser = (object: unknown): boolean => {
   if (
     !object ||
-    !isString((object as IToken).access_token) ||
-    (object as IToken).token_type !== 'bearer'
+    !isNumber((object as IUser).id) ||
+    !isString((object as IUser).email) ||
+    !isString((object as IUser).email)
   ) {
     return false
   }
@@ -27,11 +28,9 @@ export const isToken = (object: unknown): boolean => {
 export const isAuthDetails = (object: unknown): boolean => {
   if (
     !object ||
-    Object.keys(object).length !== 4 ||
-    !isNumber((object as IAuthDetails).id) ||
-    !isString((object as IAuthDetails).email) ||
-    !isString((object as IAuthDetails).username) ||
-    !isToken((object as IAuthDetails).token)
+    Object.keys(object).length !== 2 ||
+    !isString((object as IAuthDetails).token) ||
+    !isUser((object as IAuthDetails).user)
   ) {
     return false
   }

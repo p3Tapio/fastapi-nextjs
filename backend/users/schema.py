@@ -10,29 +10,35 @@ class TokenData(BaseModel):
     email: str | None = None
 
 
-class UserBase(BaseModel):
-    email: EmailStr
+class Base(BaseModel):
+    class Config:
+        extra = "forbid"
 
-
-class UserCreate(UserBase):
+class UserRegister(Base):
     username: str
+    email: EmailStr
+    password: str
+
+class UserSignin(Base):
+    email: EmailStr
     password: str
 
 
-class UserSignin(UserBase):
-    password: str
-
-
-class User(UserBase):
+class User(Base):
     id: int
+    username: str
+    email: EmailStr
 
     class Config:
         orm_mode = True
 
 
-class UserResponse(User):
-    username: str
-    token: Token
+class AuthResponse(Base):
+    user: User
+    token: str
+
+    class Config:
+        orm_mode = True
 
 
 class UserInDb(User):

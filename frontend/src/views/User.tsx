@@ -19,7 +19,7 @@ const UserPage = () => {
   const { authDetails } = useContext(AuthContext)
 
   if (!authDetails) return <Navigate to="/sign-in" />
-  const { username } = authDetails
+  const { username } = authDetails.user
 
   return (
     <div>

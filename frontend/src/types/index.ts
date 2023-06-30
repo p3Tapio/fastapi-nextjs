@@ -1,13 +1,12 @@
-export interface IToken {
-  access_token: string
-  token_type: string
-}
-export interface IAuthDetails {
+export interface IUser {
   id: number
   email: string
   username: string
-  token: IToken
   // group: string[]
+}
+export interface IAuthDetails {
+  user: IUser
+  token: string
 }
 
 export interface IRouteChildren {
