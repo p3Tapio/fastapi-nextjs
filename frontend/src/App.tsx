@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
-import { AuthContext } from 'state/authContext'
+import { AuthContext } from 'state/user/authContext'
 import Error404 from 'views/Error404'
 import createRouteChildren from 'Routes'
 import Navbar from 'components/Navbar'

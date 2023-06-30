@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../state/authContext'
+import { AuthContext } from '../state/user/authContext'
 import createRouteChildren from '../Routes'
 import './components.scss'
 

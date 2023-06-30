@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react'
-import { IAuthDetails } from '../types'
-import { isAuthDetails } from '../types/utils'
+import { IAuthDetails } from 'types/user'
+import { isAuthDetails } from 'types/utils'
 import { handleRegister, handleSignIn } from './api'
 
 interface IAuthContext {

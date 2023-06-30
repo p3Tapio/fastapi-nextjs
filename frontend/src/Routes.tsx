@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 import Test from 'views/Test'
 import Auth from 'views/Auth'
 import UserPage from 'views/User'
-import { IAuthDetails, IRouteChildren } from './types'
+import { IAuthDetails, IRouteChildren } from './types/user'
 
 const children: IRouteChildren[] = [
   {

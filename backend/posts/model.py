@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from db import Base
 
-# TODO public = ... Boolean
+# TODO public = ... Boolean, created Time, category ... one of something
 
 class Post(Base):
     __tablename__ = "posts"

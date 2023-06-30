@@ -1,6 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { AuthContext } from 'state/authContext'
+import { AuthContext } from 'state/user/authContext'
+import { getUserPosts } from '../state/post/postSlice'
+import { useAppDispatch } from '../state/store'
 
 const BigUserComponent = React.lazy(
   () =>
@@ -17,6 +19,14 @@ const AnotherBigComponent = React.lazy(
 
 const UserPage = () => {
   const { authDetails } = useContext(AuthContext)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (authDetails) {
+      const { accessToken } = authDetails
+      dispatch(getUserPosts(accessToken))
+    }
+  }, [])
 
   if (!authDetails) return <Navigate to="/sign-in" />
   const { username } = authDetails.user
