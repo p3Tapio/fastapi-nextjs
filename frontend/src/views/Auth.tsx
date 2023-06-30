@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { AuthContext } from 'context/authContext'
+import { AuthContext } from 'state/authContext'
 import Button from 'elements/Button'
 // import HorizontalLine from '../elements/HorizontalLine'
 import TextInput from 'elements/TextInput'

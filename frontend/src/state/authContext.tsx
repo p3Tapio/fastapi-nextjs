@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { IAuthDetails } from '../types'
 import { isAuthDetails } from '../types/utils'
+import { handleRegister, handleSignIn } from './api'
 
 interface IAuthContext {
   authDetails: IAuthDetails | undefined
@@ -23,9 +24,6 @@ const defaultState = {
 export const AuthContext = createContext<IAuthContext>(defaultState)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const apiUrl = process.env.API_URL
-  const baseUrl = `${apiUrl}/user`
-
   const [authDetails, setAuthDetails] = useState<IAuthDetails | undefined>(
     window.localStorage.getItem('auth-details')
       ? JSON.parse(window.localStorage.getItem('auth-details') || '')
@@ -37,32 +35,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setAuthDetails(storedUser ? JSON.parse(storedUser) : undefined)
   }, [])
 
+  const handleAuthResponse = async (response: Response) => {
+    if (response.ok) {
+      const userJson = await response.json()
+      if (!isAuthDetails(userJson)) {
+        return Promise.reject()
+      }
+      window.localStorage.setItem('auth-details', JSON.stringify(userJson))
+      setAuthDetails(userJson)
+      return Promise.resolve()
+    }
+    return Promise.reject()
+  }
+
   const signOut = () => {
     window.localStorage.removeItem('auth-details')
     setAuthDetails(undefined)
   }
 
-  const handleAuthResponse = async (response: Response) => {
-    const userJson = await response.json()
-    if (!isAuthDetails(userJson)) return Promise.reject()
-    window.localStorage.setItem('auth-details', JSON.stringify(userJson))
-    setAuthDetails(userJson)
-    return Promise.resolve()
-  }
-
   const signIn = async (email: string, password: string): Promise<void> => {
-    const response = await fetch(`${baseUrl}/signin`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-
-    if (response.ok) handleAuthResponse(response)
-
-    signOut()
-    return Promise.reject()
+    const response = await handleSignIn(email, password)
+    await handleAuthResponse(response)
   }
 
   const register = async (
@@ -70,16 +63,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     email: string,
     password: string
   ): Promise<void> => {
-    const response = await fetch(`${baseUrl}/register`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({ username, email, password }),
-    })
-    if (response.ok) handleAuthResponse(response)
-
-    return Promise.reject()
+    const response = await handleRegister(username, email, password)
+    await handleAuthResponse(response)
   }
 
   const memoizedProviderValues = useMemo(

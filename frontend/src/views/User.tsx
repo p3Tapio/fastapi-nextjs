@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
-import { AuthContext } from 'context/authContext'
+import { AuthContext } from 'state/authContext'
 
 const BigUserComponent = React.lazy(
   () =>
