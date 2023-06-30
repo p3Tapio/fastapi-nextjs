@@ -8,6 +8,8 @@ on:
 jobs:
   test_job:
     runs-on: ubuntu-20.04
+    env:
+      working-directory: ./frontend
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -15,9 +17,13 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: npm install
+        working-directory: ${{env.working-directory}}
       - name: Build the app
-        run: npm run build
+        run: npm run build:test
+        working-directory: ${{env.working-directory}}
       - name: Create users
         run: npm run create-users
+        working-directory: ${{env.working-directory}}
       - name: Run Cypress e2e
         run: npm run cypress:e2e
+        working-directory: ${{env.working-directory}}

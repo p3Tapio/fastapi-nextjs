@@ -1,6 +1,10 @@
 node_modules
 build
 db.json
-cypress/videos
-cypress/screenshots
+frontend/cypress/videos
+frontend/cypress/screenshots
 .DS_Store
+.venv
+__pycache__
+.env
+app.db

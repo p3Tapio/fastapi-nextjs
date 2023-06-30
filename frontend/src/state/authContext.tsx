@@ -1,8 +1,11 @@
 import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { IAuthDetails } from '../types'
+import { isAuthDetails } from '../types/utils'
+import { handleRegister, handleSignIn } from './api'
 
 interface IAuthContext {
   authDetails: IAuthDetails | undefined
+  register: (username: string, email: string, password: string) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => void
 }
@@ -13,6 +16,7 @@ interface AuthProviderProps {
 
 const defaultState = {
   authDetails: undefined,
+  register: async () => {},
   signIn: async () => {},
   signOut: () => {},
 }
@@ -20,8 +24,7 @@ const defaultState = {
 export const AuthContext = createContext<IAuthContext>(defaultState)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const apiUrl = process.env.API_URL
-  const [authDetails, setUser] = useState<IAuthDetails | undefined>(
+  const [authDetails, setAuthDetails] = useState<IAuthDetails | undefined>(
     window.localStorage.getItem('auth-details')
       ? JSON.parse(window.localStorage.getItem('auth-details') || '')
       : undefined
@@ -29,35 +32,43 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem('auth-details')
-    setUser(storedUser ? JSON.parse(storedUser) : undefined)
+    setAuthDetails(storedUser ? JSON.parse(storedUser) : undefined)
   }, [])
 
-  const signOut = () => {
-    window.localStorage.removeItem('auth-details')
-    setUser(undefined)
-  }
-
-  const signIn = async (email: string, password: string): Promise<void> => {
-    const response = await fetch(`${apiUrl}/login`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-
+  const handleAuthResponse = async (response: Response) => {
     if (response.ok) {
       const userJson = await response.json()
+      if (!isAuthDetails(userJson)) {
+        return Promise.reject()
+      }
       window.localStorage.setItem('auth-details', JSON.stringify(userJson))
-      setUser(userJson)
+      setAuthDetails(userJson)
       return Promise.resolve()
     }
-    signOut()
     return Promise.reject()
   }
 
+  const signOut = () => {
+    window.localStorage.removeItem('auth-details')
+    setAuthDetails(undefined)
+  }
+
+  const signIn = async (email: string, password: string): Promise<void> => {
+    const response = await handleSignIn(email, password)
+    await handleAuthResponse(response)
+  }
+
+  const register = async (
+    username: string,
+    email: string,
+    password: string
+  ): Promise<void> => {
+    const response = await handleRegister(username, email, password)
+    await handleAuthResponse(response)
+  }
+
   const memoizedProviderValues = useMemo(
-    () => ({ authDetails, signIn, signOut }),
+    () => ({ authDetails, register, signIn, signOut }),
     [authDetails]
   )
 

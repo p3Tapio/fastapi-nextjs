@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+cd frontend
 npm run lint
 npm run stylelint
 npm run check-types
