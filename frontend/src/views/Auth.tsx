@@ -7,7 +7,7 @@ import TextInput from 'elements/TextInput'
 import './views.scss'
 
 interface IAuth {
-  type: 'Sign In' | 'Register'
+  type: 'Sign in' | 'Register'
 }
 
 const Auth: React.FC<IAuth> = ({ type }) => {

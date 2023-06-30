@@ -15,7 +15,7 @@ const children: IRouteChildren[] = [
   {
     label: 'Sign in',
     path: '/sign-in',
-    element: <Auth type="Sign In" />,
+    element: <Auth type="Sign in" />,
     type: 'unauthenticated',
   },
   {

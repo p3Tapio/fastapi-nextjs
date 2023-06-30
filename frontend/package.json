@@ -21,7 +21,10 @@
     "serve:build": "serve -s build -p 3001",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:e2e": "npm-run-all -p -r  serve:build json-server cypress:run"
+    "cypress:e2e": "npm-run-all -p -r  serve:build json-server cypress:run",
+    "build:serve": "npm run build:test && npm run serve:build",
+    "create:serve": "npm run create-users && npm run json-server",
+    "test:local": "npm-run-all -p -r build:serve create:serve cypress:open"
   },
   "keywords": [],
   "author": "",
