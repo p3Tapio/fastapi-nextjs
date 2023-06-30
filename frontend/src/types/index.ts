@@ -6,7 +6,7 @@ export interface IUser {
 }
 export interface IAuthDetails {
   user: IUser
-  token: string
+  accessToken: string
 }
 
 export interface IRouteChildren {

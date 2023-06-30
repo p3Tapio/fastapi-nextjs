@@ -8,19 +8,19 @@ const users = [
     username: 'Aku Ankka',
     email: 'aku.ankka@email.com',
     password: 'salasana',
-    group: ['Admin'],
+    // group: ['Admin'],
   },
   {
     username: 'Pasi Anssi',
     email: 'pasi.anssi@email.com',
     password: 'salaisuus',
-    group: ['Group 1'],
+    // group: ['Group 1'],
   },
   {
     username: 'Hessu Hopo',
     email: 'hessu@email.com',
     password: 'salainen',
-    group: ['Group 2'],
+    // group: ['Group 2'],
   },
 ]
 

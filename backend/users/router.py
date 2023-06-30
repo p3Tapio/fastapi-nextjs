@@ -34,7 +34,7 @@ def login_user(user: schema.UserSignin, db: Session = Depends(get_db)):
             raise Exception
         
         access_token = auth.create_access_token(data={"sub": user.email})
-        return {"user": db_user, "token": access_token}
+        return {"user": db_user, "accessToken": access_token}
 
     except:
         raise HTTPException(

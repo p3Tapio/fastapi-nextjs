@@ -18,7 +18,7 @@ export const isUser = (object: unknown): boolean => {
     !object ||
     !isNumber((object as IUser).id) ||
     !isString((object as IUser).email) ||
-    !isString((object as IUser).email)
+    !isString((object as IUser).username)
   ) {
     return false
   }
@@ -29,7 +29,7 @@ export const isAuthDetails = (object: unknown): boolean => {
   if (
     !object ||
     Object.keys(object).length !== 2 ||
-    !isString((object as IAuthDetails).token) ||
+    !isString((object as IAuthDetails).accessToken) ||
     !isUser((object as IAuthDetails).user)
   ) {
     return false
