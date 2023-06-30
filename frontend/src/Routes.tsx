@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 import Test from 'views/Test'
-import SignIn from 'views/SignIn'
+import Auth from 'views/Auth'
 import UserPage from 'views/User'
 import { IAuthDetails, IRouteChildren } from './types'
 
@@ -15,7 +15,13 @@ const children: IRouteChildren[] = [
   {
     label: 'Sign in',
     path: '/sign-in',
-    element: <SignIn />,
+    element: <Auth type="Sign In" />,
+    type: 'unauthenticated',
+  },
+  {
+    label: 'Register',
+    path: '/register',
+    element: <Auth type="Register" />,
     type: 'unauthenticated',
   },
   {

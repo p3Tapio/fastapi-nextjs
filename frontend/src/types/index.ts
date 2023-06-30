@@ -1,9 +1,17 @@
-export interface IUser {
-  id: number
+interface IUserBase {
   email: string
   username: string
+}
+
+export interface IUser extends IUserBase {
+  id: number
   // group: string[]
 }
+
+export interface IUserRegister extends IUserBase {
+  password: string
+}
+
 export interface IAuthDetails {
   user: IUser
   accessToken: string

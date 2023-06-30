@@ -35,7 +35,7 @@ class User(Base):
 
 class AuthResponse(Base):
     user: User
-    token: str
+    accessToken: str
 
     class Config:
         orm_mode = True
