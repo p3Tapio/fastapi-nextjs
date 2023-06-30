@@ -71,7 +71,7 @@ const Auth: React.FC<IAuth> = ({ type }) => {
         <div className="auth-container__input-div">
           {type === 'Register' && (
             <TextInput
-              id="auth-email"
+              id="auth-username"
               type="text"
               label="Username"
               value={username}

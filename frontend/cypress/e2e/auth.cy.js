@@ -1,11 +1,48 @@
 describe('Navbar items', function () {
-  it('Contains sign in link when unauthenticated', function () {
+  it('Contains sign in and register links when unauthenticated', function () {
     cy.visit('http://localhost:3001/')
     cy.get('.navbar-container').contains('Sign in')
+    cy.get('.navbar-container').contains('Register')
   })
-  it('Does not contain secrets when unauthenticated', function () {
+  it('Does not contain user page when unauthenticated', function () {
     cy.visit('http://localhost:3001/')
     cy.get('.navbar-container').contains('User page').should('not.exist')
+  })
+})
+
+describe('Register', function () {
+  it('Register window opens', function () {
+    cy.visit('http://localhost:3001/register')
+    cy.get('.auth-container__form').contains('Username')
+    cy.get('.auth-container__form').contains('Email')
+    cy.get('.auth-container__form').contains('Password')
+    cy.get('.auth-container__form').contains('Password again')
+    cy.get('.auth-container__button-div').contains('Register')
+    cy.get('.auth-container__button-div').contains('Reset')
+  })
+  it('User can register with valid details', function () {
+    cy.visit('http://localhost:3001/register')
+    cy.get('#auth-username').type('username-x')
+    cy.get('#auth-email').type('example@user.com')
+    cy.get('#auth-password').type('secret-salasana')
+    cy.get('#auth-password-again').type('secret-salasana')
+    cy.get('#auth-submit').click()
+    cy.get('.navbar-container').contains('User page')
+  })
+  it("User can't register without username", function () {
+    cy.visit('http://localhost:3001/register')
+    cy.get('#auth-email').type('example@user.com')
+    cy.get('#auth-password').type('secret-salasana')
+    cy.get('#auth-password-again').type('secret-salasana')
+    cy.get('#auth-submit').should('be.disabled')
+  })
+  it("User can't register with mismatching passwords", function () {
+    cy.visit('http://localhost:3001/register')
+    cy.get('#auth-username').type('username-x')
+    cy.get('#auth-email').type('example@user.com')
+    cy.get('#auth-password').type('secret')
+    cy.get('#auth-password-again').type('secret-salasana')
+    cy.get('#auth-submit').should('be.disabled')
   })
 })
 
@@ -25,13 +62,15 @@ describe('Sign in', function () {
     cy.get('#auth-submit').click()
     cy.get('.navbar-container').contains('User page')
   })
-  it('User can\'t sign in with wrong details', function() {
+  it("User can't sign in with wrong details", function () {
     cy.visit('http://localhost:3001/sign-in')
     cy.get('.navbar-container').contains('User page').should('not.exist')
     cy.get('#auth-email').type('wrong@user.com')
     cy.get('#auth-password').type('invalid')
     cy.get('#auth-submit').click()
     cy.get('.navbar-container').contains('User page').should('not.exist')
-    cy.get('.auth-container__error-message').contains('Sign in failed. Try again.')
+    cy.get('.auth-container__error-message').contains(
+      'Sign in failed. Try again.'
+    )
   })
 })
