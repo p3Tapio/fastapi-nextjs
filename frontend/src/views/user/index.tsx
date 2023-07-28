@@ -1,7 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { AuthContext } from 'state/user/authContext'
-import HorizontalLine from '../../elements/HorizontalLine'
+import { getUserPosts } from 'state/post/postSlice'
+import { useAppDispatch } from 'state/store'
+
+import './userpage.scss'
 
 const UserPosts = React.lazy(
   () =>
@@ -10,18 +13,44 @@ const UserPosts = React.lazy(
     )
 )
 
+const CreatePostForm = React.lazy(
+  () =>
+    import(
+      'views/user/components/CreatePostForm' /* webpackChunkName: "user-components" */
+    )
+)
+
 const UserPage = () => {
+  const [showCreateNewForm, setShowCreateNewForm] = useState(false)
   const { authDetails } = useContext(AuthContext)
+  const dispatch = useAppDispatch()
 
   if (!authDetails) return <Navigate to="/sign-in" />
   const { username } = authDetails.user
 
+  useEffect(() => {
+    if (authDetails) {
+      const { accessToken } = authDetails
+      dispatch(getUserPosts({ token: accessToken }))
+    }
+  }, [])
+
   return (
-    <div>
+    <div className="userpage">
       <h1>Hello {username}!</h1>
-      <HorizontalLine width="100%" lineheight={1} animated />
+      <button
+        onClick={() => setShowCreateNewForm(!showCreateNewForm)}
+        className="userpage-create-new-btn"
+        type="button"
+      >
+        {showCreateNewForm ? 'Show posts' : 'Create new post'}
+      </button>
       <React.Suspense fallback={<>...</>}>
-        <UserPosts />
+        {showCreateNewForm ? (
+          <CreatePostForm setShowCreateNewForm={setShowCreateNewForm} />
+        ) : (
+          <UserPosts />
+        )}
       </React.Suspense>
     </div>
   )

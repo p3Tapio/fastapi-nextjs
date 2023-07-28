@@ -28,3 +28,7 @@ $font-size-smaller: calc(12px + 0.2vw);
 $font-weight-normal: 400;
 $font-weight-bold: 600;
 $color: $font-color;
+
+:export {
+  font_color: $font-color;
+}
