@@ -1,4 +1,4 @@
-@import './variables.module';
+// @import './variables.module';
 
 @font-face {
   font-family: Inter;
@@ -15,10 +15,3 @@
   font-display: fallback;
 }
 
-$font-inter: 'Inter', sans-serif;
-$font-size-largest: calc(36px + 1.4vw);
-$font-size-regular: calc(14px + 0.2vw);
-$font-size-smaller: calc(12px + 0.2vw);
-$font-weight-normal: 400;
-$font-weight-bold: 600;
-$color: $font-color;

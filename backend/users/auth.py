@@ -32,11 +32,9 @@ def create_access_token(data: dict):
 
 def get_current_user(db: Session, token: str):
     try:
-        print("TOKEN", token)
-        print("SECRET ", SECRET_KEY)
         payload = jwt.decode(token, SECRET_KEY, ALGORITH)
         email: str = payload.get("sub")
-        
+
         if email is None:
             raise credentials_exception
 
