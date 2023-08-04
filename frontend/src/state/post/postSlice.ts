@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { IPost, IPostBase, IPostState } from 'types/post'
-import { handleCreatePost, handleGetUserPosts } from './api'
+import { handleCreatePost, handleDeletePost, handleGetUserPosts } from './api'
 
 const initialState: IPostState = {
   userPosts: {},
@@ -53,11 +53,38 @@ export const createPost = createAsyncThunk<
   }
 )
 
+export const delelePost = createAsyncThunk<
+  { message: string; id: number },
+  { token: string; id: number },
+  { rejectValue: { status: number; message: string } }
+>(
+  'posts/deletepost',
+  async (params: { token: string; id: number }, { rejectWithValue }) => {
+    const { token, id } = params
+    const response = await handleDeletePost(token, id)
+
+    if (response.status === 200) {
+      const postJson = await response.json()
+      return postJson
+    }
+
+    return rejectWithValue({
+      status: response.status,
+      message: response.statusText,
+    })
+  }
+)
+
 const postSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    clearUserPostsFromState(state) {
+      state.userPosts = {}
+    },
+  },
   extraReducers(builder) {
+    // getUserPosts
     builder.addCase(getUserPosts.pending, (state) => {
       state.status = 'LOADING'
     })
@@ -76,6 +103,7 @@ const postSlice = createSlice({
       }
       state.status = 'ERROR'
     })
+    // createPost
     builder.addCase(createPost.pending, (state) => {
       state.status = 'LOADING'
     })
@@ -90,8 +118,23 @@ const postSlice = createSlice({
       }
       state.status = 'ERROR'
     })
+    // deletePost
+    builder.addCase(delelePost.pending, (state) => {
+      state.status = 'LOADING'
+    })
+    builder.addCase(delelePost.fulfilled, (state, action) => {
+      const { id } = action.payload
+      delete state.userPosts[id]
+      state.status = 'READY'
+    })
+    builder.addCase(delelePost.rejected, (state, action) => {
+      if (action.payload) {
+        state.error = action.payload
+      }
+      state.status = 'ERROR'
+    })
   },
 })
 
-// export const { getUserPosts } = postSlice.actions
+export const { clearUserPostsFromState } = postSlice.actions
 export default postSlice.reducer

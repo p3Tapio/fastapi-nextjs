@@ -27,3 +27,14 @@ export const handleCreatePost = (
     body: JSON.stringify(post),
   })
 }
+
+export const handleDeletePost = (
+  token: string,
+  id: number
+): Promise<Response> => {
+  const requestHeaders = getHeader(token)
+  return fetch(`${baseUrl}/${id}`, {
+    method: 'DELETE',
+    headers: requestHeaders,
+  })
+}

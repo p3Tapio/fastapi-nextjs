@@ -16,6 +16,11 @@
       font-size: $font-size-regular;
     }
 
+    &__btn-div {
+      display: flex;
+      justify-content: flex-end;
+    }
+
     &:last-of-type {
       border-bottom: 1px solid $light-gray;
     }

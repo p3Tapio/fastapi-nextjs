@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from . import schema, crud
 from users import auth
@@ -20,3 +20,23 @@ def get_user_posts(token: Annotated[str, Depends(auth.oauth2_scheme)], db: Sessi
     user = auth.get_current_user(db=db, token=token)
     db_posts = crud.get_user_posts(db=db, user=user)
     return db_posts
+
+
+@post_router.delete("/{post_id}")
+def delete_post(post_id: int, token: Annotated[str, Depends(auth.oauth2_scheme)], db: Session = Depends(get_db)):
+    user = auth.get_current_user(db=db, token=token)
+    db_post = crud.get_user_post_by_id(db=db, post_id=post_id, user=user)
+
+    if not db_post:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Not found"
+        )
+    try:
+        crud.delete_post(db=db, db_post=db_post)
+        return {"message": "success", "id": post_id}
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
+        )

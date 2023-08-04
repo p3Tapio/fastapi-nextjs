@@ -1,10 +1,32 @@
-import React from 'react'
-import { useAppSelector } from 'state/store'
+import React, { useContext } from 'react'
+import { useAppDispatch, useAppSelector } from 'state/store'
+import { delelePost } from 'state/post/postSlice'
+import { AuthContext } from 'state/user/authContext'
+import { IPost } from 'types/post'
 
 import './user-components.scss'
 
 const UserPosts = () => {
   const { userPosts } = useAppSelector((reduxState) => reduxState.posts)
+  const { authDetails } = useContext(AuthContext)
+  const dispatch = useAppDispatch()
+
+  const handleDelete = async (post: IPost) => {
+    // eslint-disable-next-line no-alert
+    if (window.confirm(`You want to delete ${post.title}!!??`)) {
+      try {
+        if (authDetails) {
+          const { accessToken } = authDetails
+          await dispatch(
+            delelePost({ token: accessToken, id: post.id })
+          ).unwrap()
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-alert
+        window.alert(error)
+      }
+    }
+  }
 
   return (
     <div className="userposts">
@@ -14,6 +36,11 @@ const UserPosts = () => {
             <div className="userposts-item__title">{post.title}</div>
             <div className="userposts-item__description">
               {post.description}
+            </div>
+            <div className="userposts-item__btn-div">
+              <button type="button" onClick={() => handleDelete(post)}>
+                delete
+              </button>
             </div>
           </div>
         ))}
