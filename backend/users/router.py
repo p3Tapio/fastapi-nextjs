@@ -7,7 +7,7 @@ user_router = APIRouter(prefix="/user")
 
 
 @user_router.post("/register", response_model=schema.AuthResponse)
-def create_user(user: schema.UserRegister, db: Session = Depends(get_db)):
+def register_user(user: schema.UserRegister, db: Session = Depends(get_db)):
     try:
         if crud.get_user_by_email(db=db, email=user.email):
             raise Exception("Email already in use")
@@ -27,7 +27,7 @@ def create_user(user: schema.UserRegister, db: Session = Depends(get_db)):
 
 
 @user_router.post("/signin", response_model=schema.AuthResponse)
-def login_user(user: schema.UserSignin, db: Session = Depends(get_db)):
+def signin_user(user: schema.UserSignin, db: Session = Depends(get_db)):
     try:
         db_user = crud.get_user_by_email(db=db, email=user.email)
         if not db_user:

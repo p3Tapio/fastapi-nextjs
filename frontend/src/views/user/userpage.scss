@@ -1,0 +1,8 @@
+@import '../../style/variables.module';
+
+.userpage {
+  &-create-new-btn {
+    cursor: pointer;
+    margin: $smaller-spacing 0;
+  }
+}

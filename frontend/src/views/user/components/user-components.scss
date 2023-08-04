@@ -1,0 +1,28 @@
+@import '../../../style/variables.module';
+
+.userposts {
+  margin-top: $default-spacing;
+
+  &-item {
+    padding: $smaller-spacing 0 $default-spacing;
+    border-top: 1px solid $light-gray;
+
+    &__title {
+      font-size: $font-size-larger;
+      margin-bottom: $smaller-spacing;
+    }
+
+    &__description {
+      font-size: $font-size-regular;
+    }
+
+    &__btn-div {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &:last-of-type {
+      border-bottom: 1px solid $light-gray;
+    }
+  }
+}

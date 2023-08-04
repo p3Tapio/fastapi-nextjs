@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-import { IAuthDetails, IUser } from '.'
+import { IAuthDetails, IUser } from './user'
 
 const isString = (text: unknown): text is string => {
   return (
