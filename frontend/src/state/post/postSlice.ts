@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { IPost, IPostBase, IPostState } from 'types/post'
 import { handleCreatePost, handleDeletePost, handleGetUserPosts } from './api'
@@ -80,58 +79,58 @@ const postSlice = createSlice({
   initialState,
   reducers: {
     clearUserPostsFromState(state) {
-      state.userPosts = {}
+      return { ...state, userPosts: {} }
     },
   },
   extraReducers(builder) {
     // getUserPosts
     builder.addCase(getUserPosts.pending, (state) => {
-      state.status = 'LOADING'
+      return { ...state, status: 'LOADING' }
     })
     builder.addCase(getUserPosts.fulfilled, (state, action) => {
       const posts: IPost[] | [] = action.payload
-      if (posts.length > 0) {
-        posts.forEach((post) => {
-          state.userPosts[post.id] = post
-        })
-      }
-      state.status = 'READY'
+      const userPosts = posts.reduce<{ [key: number]: IPost }>((acc, post) => {
+        acc[post.id] = post
+        return acc
+      }, {})
+      return { ...state, userPosts, status: 'READY' }
     })
     builder.addCase(getUserPosts.rejected, (state, action) => {
-      if (action.payload) {
-        state.error = action.payload
-      }
-      state.status = 'ERROR'
+      const error = action.payload || false
+      return { ...state, status: 'ERROR', error }
     })
     // createPost
     builder.addCase(createPost.pending, (state) => {
-      state.status = 'LOADING'
+      return { ...state, status: 'LOADING' }
     })
     builder.addCase(createPost.fulfilled, (state, action) => {
       const post: IPost = action.payload
-      state.userPosts[post.id] = post
-      state.status = 'READY'
+      return {
+        ...state,
+        userPosts: { ...state.userPosts, [post.id]: post },
+        status: 'READY',
+      }
     })
     builder.addCase(createPost.rejected, (state, action) => {
-      if (action.payload) {
-        state.error = action.payload
-      }
-      state.status = 'ERROR'
+      const error = action.payload || false
+      return { ...state, status: 'ERROR', error }
     })
     // deletePost
     builder.addCase(delelePost.pending, (state) => {
-      state.status = 'LOADING'
+      return { ...state, status: 'LOADING' }
     })
     builder.addCase(delelePost.fulfilled, (state, action) => {
       const { id } = action.payload
-      delete state.userPosts[id]
-      state.status = 'READY'
+      const { [id]: unused, ...posts } = state.userPosts
+      return {
+        ...state,
+        userPosts: posts,
+        status: 'READY',
+      }
     })
     builder.addCase(delelePost.rejected, (state, action) => {
-      if (action.payload) {
-        state.error = action.payload
-      }
-      state.status = 'ERROR'
+      const error = action.payload || false
+      return { ...state, status: 'ERROR', error }
     })
   },
 })

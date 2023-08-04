@@ -22,8 +22,11 @@ const UserPosts = () => {
           ).unwrap()
         }
       } catch (error) {
-        // eslint-disable-next-line no-alert
-        window.alert(error)
+        if (error && error instanceof Error) {
+          const { message } = error
+          // eslint-disable-next-line no-alert
+          window.alert(message || error)
+        }
       }
     }
   }
