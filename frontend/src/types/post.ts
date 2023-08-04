@@ -3,8 +3,11 @@ export interface IPostBase {
   description: string
 }
 
-export interface IPost extends IPostBase {
+export interface IPostUpdate extends IPostBase {
   id: number
+}
+
+export interface IPost extends IPostUpdate {
   owner_id: number
 }
 

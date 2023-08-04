@@ -6,7 +6,13 @@ import { IPost } from 'types/post'
 
 import './user-components.scss'
 
-const UserPosts = () => {
+interface IUserPosts {
+  setPostToUpdate: React.Dispatch<React.SetStateAction<IPost | undefined>>
+}
+
+// TODO where to show errors
+
+const UserPosts: React.FC<IUserPosts> = ({ setPostToUpdate }) => {
   const { userPosts } = useAppSelector((reduxState) => reduxState.posts)
   const { authDetails } = useContext(AuthContext)
   const dispatch = useAppDispatch()
@@ -22,7 +28,7 @@ const UserPosts = () => {
           ).unwrap()
         }
       } catch (error) {
-        if (error && error instanceof Error) {
+        if (error && typeof error === 'object' && 'message' in error) {
           const { message } = error
           // eslint-disable-next-line no-alert
           window.alert(message || error)
@@ -43,6 +49,9 @@ const UserPosts = () => {
             <div className="userposts-item__btn-div">
               <button type="button" onClick={() => handleDelete(post)}>
                 delete
+              </button>
+              <button type="button" onClick={() => setPostToUpdate(post)}>
+                update
               </button>
             </div>
           </div>

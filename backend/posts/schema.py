@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class PostBase(BaseModel):
     title: str
     description: str
@@ -7,8 +8,14 @@ class PostBase(BaseModel):
     class Config:
         extra = "forbid"
 
-class PostRequest(PostBase):
+
+class PostCreate(PostBase):
     pass
+
+
+class PostUpdate(PostBase):
+    id: int
+
 
 class Post(PostBase):
     id: int

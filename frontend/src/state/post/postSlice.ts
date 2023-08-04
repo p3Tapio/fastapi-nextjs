@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { IPost, IPostBase, IPostState } from 'types/post'
-import { handleCreatePost, handleDeletePost, handleGetUserPosts } from './api'
+import { IPost, IPostBase, IPostState, IPostUpdate } from 'types/post'
+import {
+  handleCreatePost,
+  handleDeletePost,
+  handleGetUserPosts,
+  handleUpdatePost,
+} from './api'
 
 const initialState: IPostState = {
   userPosts: {},
@@ -8,8 +13,6 @@ const initialState: IPostState = {
   error: false,
   //   publicPosts TODO
 }
-
-// https://redux-toolkit.js.org/usage/usage-with-typescript#typing-the-thunkapi-object
 
 export const getUserPosts = createAsyncThunk<
   IPost[],
@@ -20,7 +23,8 @@ export const getUserPosts = createAsyncThunk<
   async (params: { token: string }, { rejectWithValue }) => {
     const { token } = params
     const response = await handleGetUserPosts(token)
-    if (response.status === 200) {
+
+    if (response.ok) {
       const postsJson = await response.json()
       return postsJson
     }
@@ -41,7 +45,28 @@ export const createPost = createAsyncThunk<
     const { token, post } = params
     const response = await handleCreatePost(token, post)
 
-    if (response.status === 200) {
+    if (response.ok) {
+      const postJson = await response.json()
+      return postJson
+    }
+    return rejectWithValue({
+      status: response.status,
+      message: response.statusText,
+    })
+  }
+)
+
+export const updatePost = createAsyncThunk<
+  { message: string; updatedPost: IPost },
+  { token: string; post: IPostUpdate },
+  { rejectValue: { status: number; message: string } }
+>(
+  'posts/updatepost',
+  async (params: { token: string; post: IPostUpdate }, { rejectWithValue }) => {
+    const { token, post } = params
+    const response = await handleUpdatePost(token, post)
+
+    if (response.ok) {
       const postJson = await response.json()
       return postJson
     }
@@ -62,11 +87,10 @@ export const delelePost = createAsyncThunk<
     const { token, id } = params
     const response = await handleDeletePost(token, id)
 
-    if (response.status === 200) {
+    if (response.ok) {
       const postJson = await response.json()
       return postJson
     }
-
     return rejectWithValue({
       status: response.status,
       message: response.statusText,
@@ -83,22 +107,6 @@ const postSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    // getUserPosts
-    builder.addCase(getUserPosts.pending, (state) => {
-      return { ...state, status: 'LOADING' }
-    })
-    builder.addCase(getUserPosts.fulfilled, (state, action) => {
-      const posts: IPost[] | [] = action.payload
-      const userPosts = posts.reduce<{ [key: number]: IPost }>((acc, post) => {
-        acc[post.id] = post
-        return acc
-      }, {})
-      return { ...state, userPosts, status: 'READY' }
-    })
-    builder.addCase(getUserPosts.rejected, (state, action) => {
-      const error = action.payload || false
-      return { ...state, status: 'ERROR', error }
-    })
     // createPost
     builder.addCase(createPost.pending, (state) => {
       return { ...state, status: 'LOADING' }
@@ -115,6 +123,41 @@ const postSlice = createSlice({
       const error = action.payload || false
       return { ...state, status: 'ERROR', error }
     })
+
+    // getUserPosts
+    builder.addCase(getUserPosts.pending, (state) => {
+      return { ...state, status: 'LOADING' }
+    })
+    builder.addCase(getUserPosts.fulfilled, (state, action) => {
+      const posts: IPost[] | [] = action.payload
+      const userPosts = posts.reduce<{ [key: number]: IPost }>((acc, post) => {
+        acc[post.id] = post
+        return acc
+      }, {})
+      return { ...state, userPosts, status: 'READY' }
+    })
+    builder.addCase(getUserPosts.rejected, (state, action) => {
+      const error = action.payload || false
+      return { ...state, status: 'ERROR', error }
+    })
+
+    // updatePost
+    builder.addCase(updatePost.pending, (state) => {
+      return { ...state, status: 'LOADING' }
+    })
+    builder.addCase(updatePost.fulfilled, (state, action) => {
+      const { updatedPost } = action.payload
+      return {
+        ...state,
+        userPosts: { ...state.userPosts, [updatedPost.id]: updatedPost },
+        status: 'READY',
+      }
+    })
+    builder.addCase(updatePost.rejected, (state, action) => {
+      const error = action.payload || false
+      return { ...state, status: 'ERROR', error }
+    })
+
     // deletePost
     builder.addCase(delelePost.pending, (state) => {
       return { ...state, status: 'LOADING' }

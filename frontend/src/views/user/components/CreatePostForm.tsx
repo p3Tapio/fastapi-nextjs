@@ -2,14 +2,19 @@ import React, { useContext, useState } from 'react'
 import TextInput from 'elements/TextInput'
 import { useAppDispatch } from 'state/store'
 import { AuthContext } from 'state/user/authContext'
-import { createPost } from 'state/post/postSlice'
+import { createPost, updatePost } from 'state/post/postSlice'
+import { IPost } from 'types/post'
 
-interface ICreatePostFormProps {
-  setShowCreateNewForm: React.Dispatch<React.SetStateAction<boolean>>
+interface IPostFormProps {
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
+  setPostToUpdate: React.Dispatch<React.SetStateAction<IPost | undefined>>
+  postToUpdate: IPost | undefined
 }
 
-const CreatePostForm: React.FC<ICreatePostFormProps> = ({
-  setShowCreateNewForm,
+const PostForm: React.FC<IPostFormProps> = ({
+  setShowForm,
+  setPostToUpdate,
+  postToUpdate,
 }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -25,36 +30,83 @@ const CreatePostForm: React.FC<ICreatePostFormProps> = ({
           createPost({ token: accessToken, post: { title, description } })
         ).unwrap()
         // TODO show message create tjsp, setResult?
-        setShowCreateNewForm(false)
+        setShowForm(false)
       }
     } catch (error) {
-      // TODO setError and show it
-      // eslint-disable-next-line no-console
-      console.error(error)
+      if (error && typeof error === 'object' && 'message' in error) {
+        const { message } = error
+        // eslint-disable-next-line no-alert
+        window.alert(message || error)
+      }
     }
   }
 
-  // TODO vaihda descriptionille <TextField ... /> + style
+  const updateOldPost = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      if (authDetails && postToUpdate) {
+        const post = {
+          id: postToUpdate.id,
+          title: postToUpdate.title,
+          description: postToUpdate.description,
+        }
+        const { accessToken } = authDetails
+        await dispatch(updatePost({ token: accessToken, post })).unwrap()
+        setPostToUpdate(undefined)
+      }
+    } catch (error) {
+      if (error && typeof error === 'object' && 'message' in error) {
+        const { message } = error
+        // eslint-disable-next-line no-alert
+        window.alert(message || error)
+      }
+    }
+  }
+
+  const setUpdatedTitle = (value: string) => {
+    if (postToUpdate) {
+      setPostToUpdate({ ...postToUpdate, title: value })
+    }
+  }
+  const setUpdatedDescription = (value: string) => {
+    if (postToUpdate) {
+      setPostToUpdate({ ...postToUpdate, description: value })
+    }
+  }
+  // TODO vaihda descriptionille <TextField ... /> + style + <Button ??
 
   return (
-    <form onSubmit={(e) => createNewPost(e)}>
+    <form
+      onSubmit={(e) => (postToUpdate ? updateOldPost(e) : createNewPost(e))}
+    >
       <TextInput
         id="new-post-title"
         type="text"
         label="Title"
-        value={title}
-        setValue={setTitle}
+        value={postToUpdate?.title || title}
+        setValue={postToUpdate ? setUpdatedTitle : setTitle}
       />
       <TextInput
         id="new-post-description"
         type="text"
         label="Description"
-        value={description}
-        setValue={setDescription}
+        value={postToUpdate?.description || description}
+        setValue={postToUpdate ? setUpdatedDescription : setDescription}
       />
+
+      <button
+        onClick={() => {
+          setShowForm(false)
+          setPostToUpdate(undefined)
+        }}
+        type="button"
+      >
+        Back
+      </button>
       <button type="submit">Save</button>
     </form>
   )
 }
 
-export default CreatePostForm
+export default PostForm

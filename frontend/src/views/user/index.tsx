@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { AuthContext } from 'state/user/authContext'
 import { getUserPosts } from 'state/post/postSlice'
 import { useAppDispatch } from 'state/store'
+import { IPost } from 'types/post'
 
 import './userpage.scss'
 
@@ -21,7 +22,8 @@ const CreatePostForm = React.lazy(
 )
 
 const UserPage = () => {
-  const [showCreateNewForm, setShowCreateNewForm] = useState(false)
+  const [showForm, setShowForm] = useState(false)
+  const [postToUpdate, setPostToUpdate] = useState<IPost | undefined>(undefined)
   const { authDetails } = useContext(AuthContext)
   const dispatch = useAppDispatch()
 
@@ -39,17 +41,21 @@ const UserPage = () => {
     <div className="userpage">
       <h1>Hello {username}!</h1>
       <button
-        onClick={() => setShowCreateNewForm(!showCreateNewForm)}
+        onClick={() => setShowForm(!showForm)}
         className="userpage-create-new-btn"
         type="button"
       >
-        {showCreateNewForm ? 'Show posts' : 'Create new post'}
+        {showForm ? 'Show posts' : 'Create new post'}
       </button>
       <React.Suspense fallback={<>...</>}>
-        {showCreateNewForm ? (
-          <CreatePostForm setShowCreateNewForm={setShowCreateNewForm} />
+        {showForm || postToUpdate ? (
+          <CreatePostForm
+            setShowForm={setShowForm}
+            setPostToUpdate={setPostToUpdate}
+            postToUpdate={postToUpdate}
+          />
         ) : (
-          <UserPosts />
+          <UserPosts setPostToUpdate={setPostToUpdate} />
         )}
       </React.Suspense>
     </div>
