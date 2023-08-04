@@ -5,8 +5,10 @@ load_dotenv(find_dotenv())
 
 secret_key = os.getenv('SECRET_KEY')
 algorithm = os.getenv('ALGORITH')
+environment = os.getenv('ENV', 'development')
 
-jwt_config = {"secret_key": secret_key, "algorithm": algorithm}
+env_variables = {"secret_key": secret_key,
+       "algorithm": algorithm, "environment": environment}
 
 origins = [
     "http://localhost:3001"
