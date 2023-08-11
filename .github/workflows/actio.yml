@@ -1,4 +1,4 @@
-name: Actio is action in latin
+name: Actio is action in Latin
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  test_job:
+  test_frontend_job:
     runs-on: ubuntu-20.04
     env:
       working-directory: ./frontend
@@ -27,3 +27,17 @@ jobs:
       - name: Run Cypress e2e
         run: npm run cypress:e2e
         working-directory: ${{env.working-directory}}
+  test_backend_job:
+    runs-on: ubuntu-20.04
+    env:
+      working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: ENV=test PYTHONPATH=. pytest -v
