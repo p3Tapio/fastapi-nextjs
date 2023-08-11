@@ -9,3 +9,4 @@ __pycache__
 .env
 app.db
 app.test.db
+backend/.pytest_cache
