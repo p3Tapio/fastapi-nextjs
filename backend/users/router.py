@@ -20,10 +20,7 @@ def register_user(user: schema.UserRegister, db: Session = Depends(get_db)):
         return {"user": db_user, "accessToken": access_token}
 
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 
 @user_router.post("/signin", response_model=schema.AuthResponse)
@@ -40,6 +37,5 @@ def signin_user(user: schema.UserSignin, db: Session = Depends(get_db)):
 
     except:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials"
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
         )

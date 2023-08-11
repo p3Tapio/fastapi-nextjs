@@ -8,40 +8,49 @@ email = "valid@email.com"
 password = "secret"
 
 
-def getCorrectUserCredentials():
-    response = client.post(
-        '/user/signin', json={"email": email, "password": password})
+def get_correct_user_credentials():
+    response = client.post("/user/signin", json={"email": email, "password": password})
     response_json = response.json()
 
-    return {'content-type': 'application/json;charset=UTF-8',
-            'authorization': 'bearer ' + response_json['accessToken']
-            }
+    return {
+        "content-type": "application/json;charset=UTF-8",
+        "authorization": "bearer " + response_json["accessToken"],
+    }
 
 
-def createWrongUserCredentials():
+def create_user_with_wrong_credentials():
     response = client.post(
-        '/user/register', json={"username": "bad-user", "email": "somebody@else.com", "password": "something"})
+        "/user/register",
+        json={
+            "username": "bad-user",
+            "email": "somebody@else.com",
+            "password": "something",
+        },
+    )
     response_json = response.json()
 
-    return {'content-type': 'application/json;charset=UTF-8',
-            'authorization': 'bearer ' + response_json['accessToken']
-            }
+    return {
+        "content-type": "application/json;charset=UTF-8",
+        "authorization": "bearer " + response_json["accessToken"],
+    }
 
 
-def getWrongUserCredentials():
+def get_wrong_user_credentials():
     response = client.post(
-        '/user/signin', json={"email": "somebody@else.com", "password": "something"})
+        "/user/signin", json={"email": "somebody@else.com", "password": "something"}
+    )
     response_json = response.json()
 
     print(response_json)
 
-    return {'content-type': 'application/json;charset=UTF-8',
-            'authorization': 'bearer ' + response_json['accessToken']
-            }
+    return {
+        "content-type": "application/json;charset=UTF-8",
+        "authorization": "bearer " + response_json["accessToken"],
+    }
 
 
-def getOriginalPostForUpdate():
-    headers = getCorrectUserCredentials()
-    original_post = client.get('/post/', headers=headers)
+def get_original_post():
+    headers = get_correct_user_credentials()
+    original_post = client.get("/post/", headers=headers)
     original_post_json = original_post.json()
     return original_post_json

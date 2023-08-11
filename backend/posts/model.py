@@ -4,6 +4,7 @@ from db import Base
 
 # TODO public = ... Boolean, created Time, category ... one of something
 
+
 class Post(Base):
     __tablename__ = "posts"
 

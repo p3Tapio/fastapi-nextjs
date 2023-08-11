@@ -14,10 +14,12 @@ class Base(BaseModel):
     class Config:
         extra = "forbid"
 
+
 class UserRegister(Base):
     username: str
     email: EmailStr
     password: str
+
 
 class UserSignin(Base):
     email: EmailStr

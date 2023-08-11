@@ -4,7 +4,7 @@ from config import env_variables
 
 ENV = env_variables["environment"]
 
-if ENV == 'test':
+if ENV == "test":
     DB_URL = "sqlite:///./app.test.db"
 else:
     DB_URL = "sqlite:///./app.db"

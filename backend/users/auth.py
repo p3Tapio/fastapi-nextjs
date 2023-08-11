@@ -15,7 +15,7 @@ ALGORITH = env_variables["algorithm"]
 credentials_exception = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
     detail="Invalid credentials",
-    headers={"WWW-Authenticate": "Bearer"}
+    headers={"WWW-Authenticate": "Bearer"},
 )
 
 
