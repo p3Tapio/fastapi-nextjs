@@ -1,24 +1,12 @@
-from fastapi.testclient import TestClient
-from .main import app
-
-client = TestClient(app)
-
-# TOOD -- clear db after tests
-
-
-def test_read_main():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"message": "Hello, im alive!"}
+from utils import client, email, password
 
 
 def test_create_user():
     response = client.post(
-        "/user/register", json={"username": "test", "email": "valid@email.com", "password": "secret"})
+        "/user/register", json={"username": "test", "email": email, "password": password})
 
     assert response.status_code == 200
     response_json = response.json()
-
     assert response_json['accessToken'] is not None
     assert response_json['user'] == {
         "id": 1,
@@ -33,7 +21,6 @@ def test_create_user_invalid_email():
 
     assert response.status_code == 422
     response_json = response.json()
-
     assert response_json['detail'] == [
         {
             "loc": [
@@ -48,7 +35,7 @@ def test_create_user_invalid_email():
 
 def test_create_duplicate_user():
     response = client.post(
-        "/user/register", json={"username": "test", "email": "valid@email.com", "password": "secret"})
+        "/user/register", json={"username": "test", "email": email, "password": password})
 
     assert response.status_code == 400
     assert response.json() == {
@@ -58,12 +45,10 @@ def test_create_duplicate_user():
 
 def test_signin_with_correct_credentials():
     response = client.post(
-        '/user/signin', json={"email": "valid@email.com", "password": "secret"})
+        '/user/signin', json={"email": email, "password": password})
 
-    print(response.json())
     assert response.status_code == 200
     response_json = response.json()
-
     assert response_json['accessToken'] is not None
     assert response_json['user'] == {
         "id": 1,
@@ -77,7 +62,6 @@ def test_signin_with_incorrect_credentials():
         '/user/signin', json={"email": "valid@email.com", "password": "super-secret"})
 
     assert response.status_code == 401
-
     assert response.json() == {
         "detail": "Invalid credentials"
     }

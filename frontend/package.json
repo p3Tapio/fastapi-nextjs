@@ -25,7 +25,7 @@
     "build:serve": "npm run build:test && npm run serve:build",
     "create:serve": "npm run create-users && npm run json-server",
     "test:local": "npm-run-all -p -r build:serve create:serve cypress:open",
-    "test:backend": "cd ../backend && source .venv/bin/activate && ENV=test PYTHONPATH=. pytest"
+    "test:backend": "cd ../backend && source .venv/bin/activate && ENV=test PYTHONPATH=. pytest -v"
   },
   "keywords": [],
   "author": "",

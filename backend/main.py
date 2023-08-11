@@ -22,4 +22,4 @@ app.include_router(post_router)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello, im alive!"}
+    return {"message": "Hello, I'm alive!"}
