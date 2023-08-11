@@ -37,6 +37,15 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
+      # manually create DB ...
+      - name: Create DB
+        run: |
+          wget https://sqlite.org/2022/sqlite-autoconf-3380500.tar.gz
+          tar -xvf sqlite-autoconf-3380500.tar.gz
+          ./configure
+          make
+          sudo make install
+        working-directory: ${{env.working-directory}}
       - name: Install dependencies
         run: pip install -r requirements.txt
         working-directory: ${{env.working-directory}}
