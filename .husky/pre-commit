@@ -6,8 +6,8 @@ cd frontend
 npm run lint:frontend
 npm run stylelint
 npm run check-types
-echo 'Audit prod dependencies 🔦'
+echo '\nAudit prod dependencies 🔦'
 npm audit --omit=dev
-echo 'Lint backend 🧹'
+echo '\nLint backend 🧹'
 npm run lint:backend
 
