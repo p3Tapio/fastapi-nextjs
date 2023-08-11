@@ -9,6 +9,7 @@ def test_create_user():
 
     assert response.status_code == 200
     response_json = response.json()
+    print("test_create_user - response_json:\n", response_json)
     assert response_json["accessToken"] is not None
     assert response_json["user"] == {
         "id": 1,
