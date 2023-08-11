@@ -41,5 +41,5 @@ jobs:
         run: pip install -r requirements.txt
         working-directory: ${{env.working-directory}}
       - name: Run tests
-        run: ENV=test PYTHONPATH=. pytest -v
+        run: ENV=test PYTHONPATH=. python -m pytest -v
         working-directory: ${{env.working-directory}}
