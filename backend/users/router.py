@@ -20,9 +20,6 @@ def register_user(user: schema.UserRegister, db: Session = Depends(get_db)):
         return {"user": db_user, "accessToken": access_token}
 
     except Exception as e:
-        print("----------------------")
-        print("eeeeeeee:\n", e)
-        print("----------------------")
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 
