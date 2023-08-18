@@ -15,3 +15,4 @@ env_variables = {
 }
 
 origins = ["http://localhost:3001"]
+methods = ["POST", "GET", "PUT", "DELETE"]

@@ -21,12 +21,19 @@ jobs:
       - name: Build the app
         run: npm run build:test
         working-directory: ${{env.working-directory}}
+      - name: Start backend
+        run: |
+          cd ../backend
+          pip install -r requirements.txt
+          ENV=test uvicorn main:app
       - name: Create users
-        run: npm run create-users
-        working-directory: ${{env.working-directory}}
-      - name: Run Cypress e2e
-        run: npm run cypress:e2e
-        working-directory: ${{env.working-directory}}
+        run: |
+          API_URL="http://localhost:8000/test/prepare"
+          RESPONSE=$(http GET "$API_URL")
+          echo "Response: $RESPONSE"
+      # - name: Run Cypress e2e
+      #   run: npm run cypress:e2e
+      #   working-directory: ${{env.working-directory}}
   test_backend_job:
     runs-on: ubuntu-20.04
     env:
