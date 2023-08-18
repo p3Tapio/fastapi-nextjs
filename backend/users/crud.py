@@ -20,3 +20,12 @@ def get_user_by_email(db: Session, email: str):
 
 def get_user_by_username(db: Session, username: str):
     return db.query(model.User).filter(model.User.username == username).first()
+
+def remove_test_user(db: Session):
+    user_to_delete =db.query(model.User).filter_by(username="test", email="test@email.com").first()
+    if user_to_delete:
+        db.delete(user_to_delete)
+        db.commit()
+    
+    return True
+    

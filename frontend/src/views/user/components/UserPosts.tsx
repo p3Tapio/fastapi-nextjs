@@ -47,10 +47,18 @@ const UserPosts: React.FC<IUserPosts> = ({ setPostToUpdate }) => {
               {post.description}
             </div>
             <div className="userposts-item__btn-div">
-              <button type="button" onClick={() => handleDelete(post)}>
+              <button
+                id="delete-post-btn"
+                type="button"
+                onClick={() => handleDelete(post)}
+              >
                 delete
               </button>
-              <button type="button" onClick={() => setPostToUpdate(post)}>
+              <button
+                id="update-post-btn"
+                type="button"
+                onClick={() => setPostToUpdate(post)}
+              >
                 update
               </button>
             </div>
