@@ -30,4 +30,4 @@ async def root():
 
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
-logging.info("FastApi ENV: %s", ENV)
+logging.info("------ FastApi ENV: %s 🚀 -----", ENV)
