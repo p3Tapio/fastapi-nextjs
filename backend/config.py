@@ -14,6 +14,4 @@ env_variables = {
     "environment": environment,
 }
 
-print("ENV VARS: ", env_variables["algorithm"])
-
 origins = ["http://localhost:3001"]
