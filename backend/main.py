@@ -6,6 +6,7 @@ from db import engine, Base
 from config import origins, methods, env_variables
 
 ENV = env_variables["environment"]
+print("FastApi ENV: ", ENV)
 
 Base.metadata.create_all(bind=engine)
 
