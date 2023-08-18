@@ -25,11 +25,11 @@ jobs:
         run: |
           cd backend
           pip install -r requirements.txt
-          ENV=test uvicorn main:app
+          ENV=test uvicorn main:app &
       - name: Create users
         run: |
           API_URL="http://localhost:8000/test/prepare"
-          RESPONSE=$(http GET "$API_URL")
+          RESPONSE=$(curl -s "$API_URL")
           echo "Response: $RESPONSE"
       # - name: Run Cypress e2e
       #   run: npm run cypress:e2e
