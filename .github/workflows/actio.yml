@@ -23,7 +23,7 @@ jobs:
         working-directory: ${{env.working-directory}}
       - name: Start backend
         run: |
-          cd ../backend
+          cd backend
           pip install -r requirements.txt
           ENV=test uvicorn main:app
       - name: Create users
