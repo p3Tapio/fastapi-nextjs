@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from . import crud, schema, auth
 from db import get_db
-from config import env_variables
 
 user_router = APIRouter(prefix="/user")
 
@@ -21,8 +20,6 @@ def register_user(user: schema.UserRegister, db: Session = Depends(get_db)):
         return {"user": db_user, "accessToken": access_token}
 
     except Exception as e:
-        print("user_router - register user e:\n", e)
-        print("---", env_variables["algorithm"])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 

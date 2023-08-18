@@ -57,8 +57,8 @@ describe('Sign in', function () {
   it('User can sign in', function () {
     cy.visit('http://localhost:3001/sign-in')
     cy.get('.navbar-container').contains('User page').should('not.exist')
-    cy.get('#auth-email').type('aku.ankka@email.com')
-    cy.get('#auth-password').type('salasana')
+    cy.get('#auth-email').type('example@user.com')
+    cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-submit').click()
     cy.get('.navbar-container').contains('User page')
   })

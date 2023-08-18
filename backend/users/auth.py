@@ -9,8 +9,6 @@ from . import schema, crud
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-print("ENV VARS: ", env_variables["algorithm"])
-
 SECRET_KEY = env_variables["secret_key"]
 ALGORITH = env_variables["algorithm"]
 

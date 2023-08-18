@@ -15,15 +15,25 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm install
         working-directory: ${{env.working-directory}}
       - name: Build the app
         run: npm run build:test
         working-directory: ${{env.working-directory}}
-      - name: Create users
-        run: npm run create-users
-        working-directory: ${{env.working-directory}}
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      - name: Start backend
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALGORITH: ${{ secrets.ALGORITH }}
+          ACCESS_TOKEN_EXPIRES_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
+          ENV: 'test'
+        run: |
+          cd backend
+          uvicorn main:app &
       - name: Run Cypress e2e
         run: npm run cypress:e2e
         working-directory: ${{env.working-directory}}

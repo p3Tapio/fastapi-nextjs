@@ -10,10 +10,11 @@ const BundleAnalyzerPlugin =
 const environment = process.env.NODE_ENV
 const isDev = environment !== 'production'
 
+// TODO
 const getApiUrl = (env) => {
   switch (env) {
-    case 'test':
-      return 'http://localhost:3000'
+    // case 'dev':
+    // case 'prod:
     default:
       return 'http://localhost:8000'
   }
