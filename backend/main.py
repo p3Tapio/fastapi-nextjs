@@ -4,9 +4,9 @@ from users.router import user_router
 from posts.router import post_router
 from db import engine, Base
 from config import origins, methods, env_variables
+import logging
 
 ENV = env_variables["environment"]
-print("FastApi ENV: ", ENV)
 
 Base.metadata.create_all(bind=engine)
 
@@ -27,3 +27,7 @@ app.include_router(post_router)
 @app.get("/")
 async def root():
     return {"message": "Hello, I'm alive!"}
+
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+logging.info("FastApi ENV: %s", ENV)
