@@ -45,9 +45,5 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITH: ${{ secrets.ALGORITH }}
           ACCESS_TOKEN_EXPIRES_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
-        run: |
-            echo "SECRET_KEY: $SECRET_KEY"
-            echo "ALGORITH: $ALGORITH"
-            echo "ACCESS_TOKEN_EXPIRES_MINUTES: $ACCESS_TOKEN_EXPIRES_MINUTES"
-            ENV=test PYTHONPATH=. python -m pytest -v
+        run: ENV=test PYTHONPATH=. python -m pytest -v
         working-directory: ${{env.working-directory}}
