@@ -8,3 +8,5 @@ frontend/cypress/screenshots
 __pycache__
 .env
 app.db
+app.test.db
+backend/.pytest_cache

@@ -6,7 +6,7 @@
   "scripts": {
     "check-types": "tsc --noEmit --skipLibCheck",
     "lint-fix": "eslint --fix --ext .js,.ts,.tsx .",
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint:frontend": "eslint . --ext .js,.ts,.tsx",
     "stylelint-fix": "stylelint \"**/*.scss\" --fix",
     "stylelint": "stylelint \"**/*.scss\"",
     "webpack:serve": "webpack-cli serve --mode=development --env development --open --hot",
@@ -24,7 +24,9 @@
     "cypress:e2e": "npm-run-all -p -r  serve:build json-server cypress:run",
     "build:serve": "npm run build:test && npm run serve:build",
     "create:serve": "npm run create-users && npm run json-server",
-    "test:local": "npm-run-all -p -r build:serve create:serve cypress:open"
+    "test:local": "npm-run-all -p -r build:serve create:serve cypress:open",
+    "test:backend": "cd ../backend && source .venv/bin/activate && ENV=test PYTHONPATH=. pytest -v",
+    "lint:backend": "cd ../backend && source .venv/bin/activate && black ./"
   },
   "keywords": [],
   "author": "",

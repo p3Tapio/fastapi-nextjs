@@ -1,9 +1,15 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo '\nLint and typecheck frontend 🔎'
 cd frontend
-npm run lint
+npm run lint:frontend
 npm run stylelint
 npm run check-types
-echo 'Audit prod 🔦'
+echo '------------------'
+echo '\n\nAudit prod dependencies 🔦'
 npm audit --omit=dev
+echo '\n------------------'
+echo '\n\nLint backend 🧹'
+npm run lint:backend
+

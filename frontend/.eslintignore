@@ -1,5 +1,5 @@
 webpack.config.js
-build/*
+build
 users.js
 cypress/*
 cypress.config.ts

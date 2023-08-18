@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from . import crud, schema, auth
 from db import get_db
+from config import env_variables
 
 user_router = APIRouter(prefix="/user")
 
@@ -20,10 +21,9 @@ def register_user(user: schema.UserRegister, db: Session = Depends(get_db)):
         return {"user": db_user, "accessToken": access_token}
 
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
+        print("user_router - register user e:\n", e)
+        print("---", env_variables["algorithm"])
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 
 @user_router.post("/signin", response_model=schema.AuthResponse)
@@ -40,6 +40,5 @@ def signin_user(user: schema.UserSignin, db: Session = Depends(get_db)):
 
     except:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials"
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
         )
