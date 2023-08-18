@@ -5,6 +5,17 @@ from db import get_db
 
 test_router = APIRouter(prefix="/test")
 
+# Ei toistaiseksi tarvetta, mutta esimerkiksi GHA userien luonti
+#  - name: Create users
+#     run: |
+#       API_URL="http://localhost:8000/test/prepare"
+#       RESPONSE=$(curl -s "$API_URL")
+#       echo "Response: $RESPONSE"
+
+# main.py
+# if ENV == "test":
+#   app.include_router(test_router)
+
 
 @test_router.get("/prepare")
 def create_users(db: Session = Depends(get_db)):

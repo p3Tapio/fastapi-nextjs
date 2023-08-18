@@ -11,12 +11,13 @@ const environment = process.env.NODE_ENV
 const isDev = environment !== 'production'
 
 const getApiUrl = (env) => {
-  switch (env) {
-    case 'test':
-      return 'http://localhost:3000'
-    default:
-      return 'http://localhost:8000'
-  }
+  return 'http://localhost:8000'
+  // switch (env) {
+  //   case 'test':
+  //     return 'http://localhost:3000'
+  //   default:
+  //     return 'http://localhost:8000'
+  // }
 }
 
 module.exports = {
