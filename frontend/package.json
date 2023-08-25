@@ -11,6 +11,8 @@
     "lint:front:fix": "eslint --fix --ext .js,.ts,.tsx .",
     "stylelint-fix": "stylelint \"**/*.scss\" --fix",
     "stylelint": "stylelint \"**/*.scss\"",
+    "lint:back": "cd ../backend && source .venv/bin/activate && black ./",
+    "audit:back": "cd ../backend && pip-audit",
     "dev:front": "webpack-cli serve --mode=development --env development --open --hot",
     "dev:back": "cd ../backend && source .venv/bin/activate && uvicorn main:app --reload",
     "dev": "npm-run-all -p dev:front dev:back",
@@ -24,7 +26,6 @@
     "test:local": "npm-run-all -p -r start:back:test build:serve cypress:open",
     "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn main:app --reload",
     "test:back": "cd ../backend && source .venv/bin/activate && ENV=test PYTHONPATH=. pytest -v",
-    "lint:back": "cd ../backend && source .venv/bin/activate && black ./",
     "create:serve": "npm run create-users && npm run json-server",
     "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
     "create-users": "node users.js"
