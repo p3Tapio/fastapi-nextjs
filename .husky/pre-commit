@@ -11,5 +11,6 @@ echo '\n\nAudit prod dependencies 🔦'
 npm audit --omit=dev
 echo '\n------------------'
 echo '\n\nLint backend 🧹'
-npm run lint:back
+# npm run lint:back (MAC)
+npm run lint:back:w
 

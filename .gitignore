@@ -5,6 +5,7 @@ frontend/cypress/videos
 frontend/cypress/screenshots
 .DS_Store
 .venv
+env
 __pycache__
 .env
 app.db
