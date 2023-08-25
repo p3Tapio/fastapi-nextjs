@@ -1,4 +1,12 @@
 describe('Navbar items', function () {
+  before(() => {
+    cy.request('GET', 'http://localhost:8000/test/clear-db')
+  })
+  
+  after(() => {
+    cy.request('GET', 'http://localhost:8000/test/clear-db')
+  })
+
   it('Contains sign in and register links when unauthenticated', function () {
     cy.visit('http://localhost:3001/')
     cy.get('.navbar-container').contains('Sign in')

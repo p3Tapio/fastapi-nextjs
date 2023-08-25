@@ -3,7 +3,7 @@
 
 echo '\nLint and typecheck frontend 🔎'
 cd frontend
-npm run lint:frontend
+npm run lint:front
 npm run stylelint
 npm run check-types
 echo '------------------'
@@ -11,5 +11,5 @@ echo '\n\nAudit prod dependencies 🔦'
 npm audit --omit=dev
 echo '\n------------------'
 echo '\n\nLint backend 🧹'
-npm run lint:backend
+npm run lint:back
 

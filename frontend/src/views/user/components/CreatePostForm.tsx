@@ -104,7 +104,9 @@ const PostForm: React.FC<IPostFormProps> = ({
       >
         Back
       </button>
-      <button type="submit">Save</button>
+      <button id="save-new-post" type="submit">
+        Save
+      </button>
     </form>
   )
 }

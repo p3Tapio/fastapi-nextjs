@@ -41,8 +41,9 @@ const UserPage = () => {
     <div className="userpage">
       <h1>Hello {username}!</h1>
       <button
+        id="toggle-posts"
         onClick={() => setShowForm(!showForm)}
-        className="userpage-create-new-btn"
+        className="userpage-toggle-posts"
         type="button"
       >
         {showForm ? 'Show posts' : 'Create new post'}
