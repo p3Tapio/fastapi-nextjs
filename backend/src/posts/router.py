@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from . import schema, crud
-from users import auth
-from db import get_db
 from typing import Annotated
+from . import schema, crud
+from ..users import auth
+from ..db import get_db
 
 post_router = APIRouter(prefix="/post")
 

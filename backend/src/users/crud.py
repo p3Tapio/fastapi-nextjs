@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from . import model, schema
-from posts import model as posts_model
+from ..posts import model as posts_model
 from .auth import pwd_context
-from db import engine
+from ..db import engine
 
 
 def create_user(db: Session, user: schema.UserRegister):

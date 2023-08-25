@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from . import model, schema
-from users import schema as user_schema
+from ..users import schema as user_schema
 
 
 def create_post(db: Session, post: schema.PostCreate, user: user_schema.User):

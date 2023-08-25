@@ -1,4 +1,4 @@
-from utils import client, email, password
+from src.tests.utils import client, email, password
 
 
 def test_create_user():

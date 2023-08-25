@@ -1,4 +1,4 @@
-from utils import (
+from src.tests.utils import (
     client,
     get_correct_user_credentials,
     create_user_with_wrong_credentials,

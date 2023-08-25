@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from config import env_variables
+from .config import env_variables
 
 ENV = env_variables["environment"]
 

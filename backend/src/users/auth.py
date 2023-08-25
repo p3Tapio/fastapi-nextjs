@@ -3,7 +3,7 @@ from fastapi import HTTPException, status
 from passlib.context import CryptContext
 from jose import jwt
 from sqlalchemy.orm import Session
-from config import env_variables
+from ..config import env_variables
 from . import schema, crud
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
