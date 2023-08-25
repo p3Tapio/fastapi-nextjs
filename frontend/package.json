@@ -22,7 +22,7 @@
     "cypress:run": "cypress run",
     "cypress:e2e": "npm-run-all -p -r serve:build cypress:run",
     "test:local": "npm-run-all -p -r start:back:test build:serve cypress:open",
-    "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn main:app",
+    "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn main:app --reload",
     "test:back": "cd ../backend && source .venv/bin/activate && ENV=test PYTHONPATH=. pytest -v",
     "lint:back": "cd ../backend && source .venv/bin/activate && black ./",
     "create:serve": "npm run create-users && npm run json-server",
