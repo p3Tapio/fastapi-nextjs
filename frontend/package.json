@@ -24,7 +24,7 @@
     "cypress:run": "cypress run",
     "cypress:e2e": "npm-run-all -p -r serve:build cypress:run",
     "test:local": "npm-run-all -p -r start:back:test build:serve cypress:open",
-    "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn main:app --reload",
+    "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn src.main:app --reload",
     "test:back": "cd ../backend && source .venv/bin/activate && ENV=test PYTHONPATH=. pytest -v",
     "create:serve": "npm run create-users && npm run json-server",
     "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
