@@ -49,7 +49,7 @@ jobs:
 
       - name: Run tests
         run: |
-          docker run -it --rm \
+          docker run --rm \
             -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
             -e ALGORITH=${{ secrets.ALGORITH }} \
             -e ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }} \
