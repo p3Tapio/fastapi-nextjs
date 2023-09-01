@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build Docker image
-        run: docker build -t backend
+        run: docker build -t backend .
         working-directory: ${{env.working-directory}}
 
       - name: Run tests
