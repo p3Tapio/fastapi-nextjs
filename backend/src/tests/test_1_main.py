@@ -1,4 +1,5 @@
-from utils import client
+from src.tests.utils import client
+
 
 # TOOD -- clear db after tests
 

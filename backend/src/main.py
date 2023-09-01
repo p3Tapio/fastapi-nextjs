@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from users.router import user_router
-from posts.router import post_router
-from tests.router import test_router
-from db import engine, Base
-from config import origins, methods, env_variables
+from .users.router import user_router
+from .posts.router import post_router
+from .tests.router import test_router
+from .db import engine, Base
+from .config import origins, methods, env_variables
 import logging
 
 ENV = env_variables["environment"]

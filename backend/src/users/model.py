@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import EmailType
-from db import Base
+from ..db import Base
 
 
 class User(Base):

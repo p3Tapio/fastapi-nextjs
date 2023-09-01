@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from db import Base
+from ..db import Base
 
 # TODO public = ... Boolean, created Time, category ... one of something
 
