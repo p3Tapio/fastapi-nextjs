@@ -61,7 +61,7 @@ jobs:
             -e PYTHONPATH=./app/src \
             -v ${{ github.workspace }}:/app \
             -w /app/src \
-            backend /bin/bash
+            backend /bin/bash -c "ls /app && ls /app/src && ls /app/src/tests"
       # - name: Run tests
       #   run: |
       #     docker run --rm \
