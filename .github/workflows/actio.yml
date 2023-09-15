@@ -53,7 +53,7 @@ jobs:
         working-directory: ${{env.working-directory}}
       - name: Inspect Container
         run: |
-          docker run -it \
+          docker run --rm \
             -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
             -e ALGORITH=${{ secrets.ALGORITH }} \
             -e ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }} \
