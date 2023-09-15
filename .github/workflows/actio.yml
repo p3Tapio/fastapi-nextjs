@@ -60,8 +60,9 @@ jobs:
             -e ENV=test \
             -e PYTHONPATH=./app/src \
             -v ${{ github.workspace }}:/app \
-            -w /app/src \
-            backend /bin/bash -c "ls /app && ls /app/src"
+            -w /app/backend  \
+            backend /bin/bash -c "ls"
+        working-directory: ${{env.working-directory}}
       # - name: Run tests
       #   run: |
       #     docker run --rm \
@@ -73,4 +74,3 @@ jobs:
       #       -v ${{ github.workspace }}:/app \
       #       -w /app/src \
       #       backend pytest -v --cache-clear
-      #   working-directory: ${{env.working-directory}}
