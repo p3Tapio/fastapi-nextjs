@@ -70,3 +70,9 @@ jobs:
             -w /app/src \
             backend pytest -v --cache-clear
         working-directory: ${{env.working-directory}}
+      - name: Interactive Docker Shell
+        run: |
+          docker run --rm -it \
+            -v ${{ github.workspace }}:/app \
+            -w /app/src \
+            backend /bin/bash
