@@ -58,10 +58,10 @@ jobs:
             -e ALGORITH=${{ secrets.ALGORITH }} \
             -e ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }} \
             -e ENV=test \
-            -e PYTHONPATH=./app/src \
+            -e PYTHONPATH=. \
             -v ${{ github.workspace }}:/app \
             -w /app/backend  \
-            backend /bin/bash -c "ls"
+            backend pytest -v
         working-directory: ${{env.working-directory}}
       # - name: Run tests
       #   run: |
