@@ -30,7 +30,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITH: ${{ secrets.ALGORITH }}
           ACCESS_TOKEN_EXPIRES_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
-          ENV: 'test'
+          ENV: "test"
         run: |
           cd backend
           uvicorn src.main:app &
@@ -46,14 +46,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9.6 
+          python-version: 3.9.6
       - name: Build Docker image
         run: docker build -t backend .
         working-directory: ${{env.working-directory}}
       - name: Check Python Version
         run: python --version
+      - name: Interactive Docker Shell
+        run: |
+          docker run --rm -it \
+            -v ${{ github.workspace }}:/app \
+            -w /app/src \
+            backend /bin/bash
       - name: List Test Files
-        run: | 
+        run: |
           docker run --rm \
             -v ${{ github.workspace }}:/app \
             -w /app/src \
@@ -70,9 +76,3 @@ jobs:
             -w /app/src \
             backend pytest -v --cache-clear
         working-directory: ${{env.working-directory}}
-      - name: Interactive Docker Shell
-        run: |
-          docker run --rm -it \
-            -v ${{ github.workspace }}:/app \
-            -w /app/src \
-            backend /bin/bash
