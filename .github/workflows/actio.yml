@@ -53,7 +53,11 @@ jobs:
       - name: Check Python Version
         run: python --version
       - name: List Test Files
-        run: find . -type f -name "*test*.py"
+        run: | 
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /app/src \
+            backend find . -type f -name "*test*.py"
       - name: Run tests
         run: |
           docker run --rm \
