@@ -6,42 +6,41 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  # test_frontend_job:
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     working-directory: ./frontend
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #     - name: Install frontend dependencies
-  #       run: npm install
-  #       working-directory: ${{env.working-directory}}
-  #     - name: Build the app
-  #       run: npm run build:test
-  #       working-directory: ${{env.working-directory}}
-  #     - name: Install backend dependencies
-  #       run: |
-  #         cd backend
-  #         pip install -r requirements.txt
-  #     - name: Start backend
-  #       env:
-  #         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-  #         ALGORITH: ${{ secrets.ALGORITH }}
-  #         ACCESS_TOKEN_EXPIRES_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
-  #         ENV: "test"
-  #       run: |
-  #         cd backend
-  #         uvicorn src.main:app &
-  #     - name: Run Cypress e2e
-  #       run: npm run cypress:e2e
-  #       working-directory: ${{env.working-directory}}
+  test_frontend_job:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ${{env.working-directory}}
+      - name: Build the app
+        run: npm run build:test
+        working-directory: ${{env.working-directory}}
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      - name: Start backend
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALGORITH: ${{ secrets.ALGORITH }}
+          ACCESS_TOKEN_EXPIRES_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
+          ENV: "test"
+        run: |
+          cd backend
+          uvicorn src.main:app &
+      - name: Run Cypress e2e
+        run: npm run cypress:e2e
+        working-directory: ${{env.working-directory}}
   test_backend_job:
     runs-on: ubuntu-20.04
     env:
       working-directory: ./backend
-      ACTIONS_RUNNER_DEBUG: true
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -51,7 +50,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t backend .
         working-directory: ${{env.working-directory}}
-      - name: Inspect Container
+      - name: Run tests
         run: |
           docker run --rm \
             -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
@@ -63,14 +62,3 @@ jobs:
             -w /app/backend  \
             backend pytest -v
         working-directory: ${{env.working-directory}}
-      # - name: Run tests
-      #   run: |
-      #     docker run --rm \
-      #       -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
-      #       -e ALGORITH=${{ secrets.ALGORITH }} \
-      #       -e ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }} \
-      #       -e ENV=test \
-      #       -e PYTHONPATH=./app/src \
-      #       -v ${{ github.workspace }}:/app \
-      #       -w /app/src \
-      #       backend pytest -v --cache-clear
