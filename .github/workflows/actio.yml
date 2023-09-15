@@ -46,6 +46,10 @@ jobs:
       - name: Build Docker image
         run: docker build -t backend .
         working-directory: ${{env.working-directory}}
+      - name: Check Python Version
+        run: python --version
+      - name: List Test Files
+        run: find . -type f -name "*test*.py"
       - name: Run tests
         run: |
           docker run --rm \
