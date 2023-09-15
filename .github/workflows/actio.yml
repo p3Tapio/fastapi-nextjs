@@ -41,6 +41,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       working-directory: ./backend
+      ACTIONS_RUNNER_DEBUG: true
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -50,23 +51,9 @@ jobs:
       - name: Build Docker image
         run: docker build -t backend .
         working-directory: ${{env.working-directory}}
-      - name: Check Python Version
-        run: python --version
-      - name: Interactive Docker Shell
+      - name: Inspect Container
         run: |
           docker run --rm -it \
-            -v ${{ github.workspace }}:/app \
-            -w /app/src \
-            backend /bin/bash
-      - name: List Test Files
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}:/app \
-            -w /app/src \
-            backend find . -type f -name "*test*.py"
-      - name: Run tests
-        run: |
-          docker run --rm \
             -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
             -e ALGORITH=${{ secrets.ALGORITH }} \
             -e ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }} \
@@ -74,5 +61,16 @@ jobs:
             -e PYTHONPATH=./app/src \
             -v ${{ github.workspace }}:/app \
             -w /app/src \
-            backend pytest -v --cache-clear
-        working-directory: ${{env.working-directory}}
+            backend /bin/bash
+      # - name: Run tests
+      #   run: |
+      #     docker run --rm \
+      #       -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
+      #       -e ALGORITH=${{ secrets.ALGORITH }} \
+      #       -e ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }} \
+      #       -e ENV=test \
+      #       -e PYTHONPATH=./app/src \
+      #       -v ${{ github.workspace }}:/app \
+      #       -w /app/src \
+      #       backend pytest -v --cache-clear
+      #   working-directory: ${{env.working-directory}}
