@@ -49,7 +49,7 @@ jobs:
         with:
           python-version: 3.9.6
       - name: Build Docker image
-        run: docker build -rm backend .
+        run: docker build -t backend .
         working-directory: ${{env.working-directory}}
       - name: Inspect Container
         run: |
