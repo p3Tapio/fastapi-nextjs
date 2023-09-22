@@ -41,6 +41,9 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       working-directory: ./backend
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITH: ${{ secrets.ALGORITH }}
+      ACCESS_TOKEN_EXPIRES_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
