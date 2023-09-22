@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backend
+    build: .
+    ports: 
+      - 8000:8000
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITH=${ALGORITH}
+      - ACCESS_TOKEN_EXPIRES_MINUTES=${ACCESS_TOKEN_EXPIRES_MINUTES}
+      - PYTHONPATH=.
+    volumes:
+      - ${WORKSPACE}:/app
+    working_dir: /app/backend

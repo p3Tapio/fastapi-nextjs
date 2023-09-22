@@ -41,24 +41,17 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       working-directory: ./backend
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITH: ${{ secrets.ALGORITH }}
+      ACCESS_TOKEN_EXPIRES_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
+      WORKSPACE: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.9.6
-      - name: Build Docker image
-        run: docker build -t backend .
-        working-directory: ${{env.working-directory}}
       - name: Run tests
         run: |
-          docker run --rm \
-            -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
-            -e ALGORITH=${{ secrets.ALGORITH }} \
-            -e ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }} \
-            -e ENV=test \
-            -e PYTHONPATH=. \
-            -v ${{ github.workspace }}:/app \
-            -w /app/backend  \
-            backend pytest -v
+          docker-compose run -e ENV=test backend pytest -v
         working-directory: ${{env.working-directory}}
