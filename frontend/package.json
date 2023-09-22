@@ -29,6 +29,7 @@
     "create:serve": "npm run create-users && npm run json-server",
     "build:backend": "cd ../backend && docker build -t backend . --no-cache",
     "test:back:docker": "cd ../backend && docker-compose run -e ENV=test backend bash -c \"cd /app && pytest -v\"",
+    "build:test:back": "npm run build:backend && npm run test:back:docker",
     "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
     "create-users": "node users.js"
   },
