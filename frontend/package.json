@@ -27,6 +27,8 @@
     "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn src.main:app --reload",
     "test:back": "cd ../backend && source .venv/bin/activate && ENV=test PYTHONPATH=. pytest -v",
     "create:serve": "npm run create-users && npm run json-server",
+    "build:backend": "cd ../backend && docker build -t backend . --no-cache",
+    "test:back:docker": "cd ../backend && docker-compose run -e ENV=test backend bash -c \"cd /app && pytest -v\"",
     "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
     "create-users": "node users.js"
   },
