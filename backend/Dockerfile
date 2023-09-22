@@ -6,8 +6,8 @@ EXPOSE 8000
 
 WORKDIR /app
 
-COPY --chown=app:app ./requirements.txt /app/
-COPY --chown=app:app ./src /app/src/
+COPY ./requirements.txt /app/
+COPY ./src /app/src/
 
 RUN pip install -r /app/requirements.txt
 
