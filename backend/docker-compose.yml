@@ -6,7 +6,7 @@ services:
     build: .
     ports: 
       - 8000:8000
-     environment:
+    environment:
       - SECRET_KEY=${{ secrets.SECRET_KEY }}
       - ALGORITH=${{ secrets.ALGORITH }}
       - ACCESS_TOKEN_EXPIRES_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRES_MINUTES }}
