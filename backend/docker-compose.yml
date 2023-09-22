@@ -12,5 +12,5 @@ services:
       - ACCESS_TOKEN_EXPIRES_MINUTES=${ACCESS_TOKEN_EXPIRES_MINUTES}
       - PYTHONPATH=.
     volumes:
-      - ${{ github.workspace }}:/app
+      - ${WORKSPACE}:/app
     working_dir: /app/backend
