@@ -11,6 +11,4 @@ services:
       - ALGORITH=${ALGORITH}
       - ACCESS_TOKEN_EXPIRES_MINUTES=${ACCESS_TOKEN_EXPIRES_MINUTES}
       - PYTHONPATH=.
-    volumes:
-      - ${WORKSPACE}:/app
-    working_dir: /app/backend
+    working_dir: /app
