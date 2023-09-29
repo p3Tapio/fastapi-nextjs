@@ -5,19 +5,17 @@
   "main": "index.js",
   "scripts": {
     "prepare": "cd .. && husky install",
-    "analyze": "STATS=server webpack --mode=production --profile",
     "check-types": "tsc --noEmit --skipLibCheck",
-    "lint:front": "eslint . --ext .js,.ts,.tsx",
+    "lint:front": "next lint",
     "lint:front:fix": "eslint --fix --ext .js,.ts,.tsx .",
     "stylelint-fix": "stylelint \"**/*.scss\" --fix",
     "stylelint": "stylelint \"**/*.scss\"",
     "lint:back": "cd ../backend && source .venv/bin/activate && black ./",
     "audit:back": "cd ../backend && pip-audit",
-    "dev:front": "webpack-cli serve --mode=development --env development --open --hot",
+    "dev:front": "next dev",
     "dev:back": "cd ../backend && source .venv/bin/activate && uvicorn src.main:app --reload",
     "dev": "npm-run-all -p dev:front dev:back",
-    "build:prod": "NODE_ENV=production webpack --mode=production --env production --progress",
-    "build:test": "NODE_ENV=test webpack --mode=production --env production --progress",
+    "build:front": "next build",
     "serve:build": "serve -s build -p 3001",
     "build:serve": "npm run build:test && npm run serve:build",
     "cypress:open": "cypress open",
@@ -29,19 +27,17 @@
     "create:serve": "npm run create-users && npm run json-server",
     "build:backend": "cd ../backend && docker build -t backend . --no-cache",
     "test:back:docker": "cd ../backend && docker-compose run -e ENV=test backend bash -c \"cd /app && pytest -v\"",
-    "build:test:back": "npm run build:backend && npm run test:back:docker",
-    "json-server": "npx json-server --watch db.json -m ./node_modules/json-server-auth",
-    "create-users": "node users.js"
+    "build:test:back": "npm run build:backend && npm run test:back:docker"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "next": "^13.5.3",
     "@reduxjs/toolkit": "^1.9.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.1.1",
-    "react-router-dom": "^6.6.1"
+    "react-redux": "^8.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
@@ -55,6 +51,7 @@
     "eslint": "^8.30.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-next": "13.5.3",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
