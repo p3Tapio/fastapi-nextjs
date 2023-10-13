@@ -1,0 +1,9 @@
+{
+  "extends": ["next/core-web-vitals", "airbnb-base"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "react/jsx-props-no-spreading": ["warn"],
+    "semi": ["warn", "never"]
+  },
+  "ignorePatterns": [".legacy-react-front/"]
+}
