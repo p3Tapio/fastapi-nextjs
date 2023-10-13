@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
-import Footer from './_components/footer/footer'
-import Navigation from './_components/navigation/navigation'
+import Footer from './_components/footer/Footer'
+import Navigation from './_components/navigation/Navigation'
 import './_style/base-style.scss'
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en">
       <body>
@@ -14,3 +14,5 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   )
 }
+
+export default RootLayout
