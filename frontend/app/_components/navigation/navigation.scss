@@ -1,0 +1,11 @@
+@import '../../_style/variables.modules';
+
+nav {
+  display: flex;
+  justify-content: flex-start;
+  padding: $smaller-spacing;
+
+  .nav-item {
+    margin-right: $default-spacing;
+  }
+}

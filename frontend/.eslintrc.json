@@ -3,7 +3,13 @@
   "rules": {
     "no-unused-vars": "warn",
     "react/jsx-props-no-spreading": ["warn"],
-    "semi": ["warn", "never"]
+    "semi": ["warn", "never"],
+    "arrow-body-style": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      { "tsx": "never", "ts": "never" }
+    ]
   },
   "ignorePatterns": [".legacy-react-front/"]
 }

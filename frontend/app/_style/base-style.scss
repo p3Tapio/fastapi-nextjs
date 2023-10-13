@@ -5,12 +5,13 @@
 }
 
 html,
-body,
-#app {
+body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
   color: $font-color;
   font-family: $font-inter;
 
@@ -22,5 +23,12 @@ body,
   p {
     font-size: $font-size-regular;
     margin: 4px 0;
+  }
+
+  main {
+    flex: 1 0 auto;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 840px;
   }
 }
