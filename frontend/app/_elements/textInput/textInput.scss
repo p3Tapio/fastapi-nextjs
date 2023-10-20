@@ -1,0 +1,18 @@
+@import '../../_style/variables.modules';
+
+.textinput {
+  height: 55px;
+
+  label {
+    font-family: $font-inter;
+    font-size: $font-size-smaller;
+  }
+
+  input {
+    margin-top: 2px;
+    height: 25px;
+    border: 1px solid rgba($color, 0.4);
+    border-radius: 2px;
+    width: 100%;
+  }
+}

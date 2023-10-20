@@ -1,0 +1,57 @@
+@import '../../_style/variables.modules';
+
+.auth-container {
+  @keyframes boxshadow-fade-in {
+    0% {
+      box-shadow: none;
+    }
+
+    100% {
+      box-shadow: $shadow-card;
+    }
+  }
+
+  animation: boxshadow-fade-in 0.2s ease-in;
+  background-color: $lightest-gray;
+  padding: 10px 20px 20px;
+  width: 100%;
+  max-width: 375px;
+  margin: 10vh auto 0;
+  box-shadow: $shadow-card;
+
+  header {
+    align-self: flex-start;
+    text-align: left;
+    width: 100%;
+    margin-bottom: $larger-spacing;
+
+    &-header {
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      animation: fade-in 0.5s ease-out;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $default-spacing;
+
+    button {
+      margin-left: 5px;
+    }
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+  }
+}

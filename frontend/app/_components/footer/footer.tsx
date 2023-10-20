@@ -2,9 +2,9 @@ import './footer.scss'
 
 const Footer = () => {
   return (
-    <div className="footer-container">
+    <footer className="footer-container">
       <p>Footer</p>
-    </div>
+    </footer>
   )
 }
 
