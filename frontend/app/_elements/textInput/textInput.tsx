@@ -6,18 +6,10 @@ interface ITextInputProps {
   type: 'email' | 'text' | 'password'
   label: string
   value: string
-  setValue:
-    | React.Dispatch<React.SetStateAction<string>>
-    | ((value: string) => void)
+  setValue: React.Dispatch<React.SetStateAction<string>> | ((value: string) => void)
 }
 
-const TextInput: React.FC<ITextInputProps> = ({
-  id,
-  type,
-  label,
-  value,
-  setValue,
-}) => {
+const TextInput: React.FC<ITextInputProps> = ({ id, type, label, value, setValue }) => {
   return (
     <div className="textinput">
       <label htmlFor={id}>

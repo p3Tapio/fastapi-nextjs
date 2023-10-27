@@ -1,6 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { redirect } from 'next/navigation'
+import { AuthContext } from '../../_state/user/authContext'
 import Button from '../../_elements/button/button'
 import TextInput from '../../_elements/textInput/textInput'
 import './auth.scss'
@@ -10,11 +12,12 @@ interface IAuthProps {
 }
 
 const Auth: React.FC<IAuthProps> = ({ type }) => {
+  const { register, signIn, authDetails } = useContext(AuthContext)
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordVerify, setPasswordVerify] = useState('')
-  // const [error, setError] = useState(false)
+  const [error, setError] = useState(false)
   const disableSignIn = email === '' || password === ''
   const disableRegister = disableSignIn || username === '' || password !== passwordVerify
 
@@ -27,28 +30,29 @@ const Auth: React.FC<IAuthProps> = ({ type }) => {
 
   const handleSignIn = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault()
-    // if (!disableSignIn) {
-    //   try {
-    //     await signIn(email, password)
-    //     resetState()
-    //   } catch {
-    //     setError(true)
-    //   }
-    // }
+    if (!disableSignIn) {
+      try {
+        await signIn(email, password)
+        resetState()
+      } catch {
+        setError(true)
+      }
+    }
   }
 
   const handleRegister = async (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault()
-    // if (!disableRegister) {
-    //   try {
-    //     await register(username, email, password)
-    //     resetState()
-    //   } catch {
-    //     setError(true)
-    //   }
-    // }
+    if (!disableRegister) {
+      try {
+        await register(username, email, password)
+        resetState()
+      } catch {
+        setError(true)
+      }
+    }
   }
 
+  if (authDetails) redirect('/user-page')
   const onSubmit = type === 'Sign in' ? handleSignIn : handleRegister
 
   return (
@@ -92,9 +96,9 @@ const Auth: React.FC<IAuthProps> = ({ type }) => {
             />
           )}
         </fieldset>
-        {/* <div className="auth-container__error-message">
+        <div className="auth-container__error-message">
           {error && `${type} failed. Try again.`}
-        </div> */}
+        </div>
         <fieldset className="auth-container__buttons">
           <Button
             id="auth-reset"
