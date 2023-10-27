@@ -13,8 +13,15 @@
     "downlevelIteration": true,
     "baseUrl": "src",
     "lib": ["ES6", "dom", "dom.iterable"],
-    "sourceMap": true,
+    "sourceMap": true
   },
-  "exclude": ["node_modules", "build", ".vscode", "cypress", "cypress.config.ts", ".legacy"],
+  "exclude": [
+    "node_modules",
+    "build",
+    ".vscode",
+    "cypress",
+    "cypress.config.ts",
+    ".legacy"
+  ],
   "include": ["src"]
 }

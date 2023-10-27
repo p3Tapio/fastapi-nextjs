@@ -3,7 +3,8 @@
   "extends": [
     "airbnb",
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
@@ -11,17 +12,10 @@
     "react/require-default-props": "off",
     "semi": ["warn", "never"],
     "arrow-body-style": ["error", "always"],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      { "tsx": "never", "ts": "never" }
-    ],
-    "react/function-component-definition": [
-      2,
-      { "namedComponents": "arrow-function" }
-    ],
+    "import/extensions": ["error", "ignorePackages", { "tsx": "never", "ts": "never" }],
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
   },
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": [".legacy-react-front/"]
+  "ignorePatterns": [".legacy-react-front/", "cypress.config.ts", "cypress"]
 }
