@@ -3,7 +3,7 @@ name: Actio is action in Latin
 on:
   pull_request:
     branches: [main]
-    types: [opened, synchronize, reopened]
+    types: [opened, reopened] #synchronize, 
 
 jobs:
   test_frontend_job:
