@@ -6,7 +6,9 @@ import { AuthContext } from '../../_state/user/authContext'
 
 const User = () => {
   const { authDetails } = useContext(AuthContext)
-  if (!authDetails) return redirect('/')
+  if (typeof authDetails === 'string' && authDetails === 'unauthenticated') {
+    return redirect('/')
+  }
   return <p>HELLO</p>
 }
 

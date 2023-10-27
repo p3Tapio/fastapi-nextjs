@@ -52,7 +52,9 @@ const Auth: React.FC<IAuthProps> = ({ type }) => {
     }
   }
 
-  if (authDetails) redirect('/user-page')
+  if (typeof authDetails === 'object' && authDetails.accessToken) {
+    redirect('/user-page')
+  }
   const onSubmit = type === 'Sign in' ? handleSignIn : handleRegister
 
   return (

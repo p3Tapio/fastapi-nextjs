@@ -6,7 +6,7 @@ import { isAuthDetails } from '../../_types/utils'
 import { handleRegister, handleSignIn } from './api'
 
 interface IAuthContext {
-  authDetails: IAuthDetails | undefined
+  authDetails: IAuthDetails | 'unauthenticated' | undefined
   register: (username: string, email: string, password: string) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => void
@@ -26,14 +26,16 @@ const defaultState = {
 export const AuthContext = createContext<IAuthContext>(defaultState)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [authDetails, setAuthDetails] = useState<IAuthDetails | undefined>(undefined)
+  const [authDetails, setAuthDetails] = useState<
+    IAuthDetails | 'unauthenticated' | undefined
+  >(undefined)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setAuthDetails(
         window.localStorage.getItem('auth-details')
           ? JSON.parse(window.localStorage.getItem('auth-details') || '')
-          : undefined
+          : 'unauthenticated'
       )
     }
   }, [])
@@ -60,7 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signOut = () => {
     window.localStorage.removeItem('auth-details')
-    setAuthDetails(undefined)
+    setAuthDetails('unauthenticated')
   }
 
   const signIn = async (email: string, password: string): Promise<void> => {

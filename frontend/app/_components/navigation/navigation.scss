@@ -6,6 +6,15 @@ nav {
   padding: $smaller-spacing;
 
   .nav-item {
-    margin-right: $default-spacing;
+    font-weight: $font-weight-bold;
+    color: $font-color;
+    cursor: pointer;
+    outline: none;
+    background: none;
+    border: 1px solid $font-color;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-right: $smaller-spacing;
+    padding: 5px 10px;
   }
 }
