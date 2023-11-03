@@ -8,24 +8,13 @@ const headers = { 'content-type': 'application/json;charset=UTF-8' }
 export async function POST(request: Request) {
   try {
     const requestJson = await request.json()
-    const { path } = requestJson
-
-    let requestBody
-
-    if (path === 'register') {
-      const { username, email, password } = requestJson
-      requestBody = JSON.stringify({ username, email, password })
-    } else if (path === 'signin') {
-      const { email, password } = requestJson
-      requestBody = JSON.stringify({ email, password })
-    } else {
-      throw new Error('Malformed request')
-    }
+    const url = new URL(request.url)
+    const path = url.searchParams.get('path')
 
     const res = await fetch(`${baseUrl}/${path}`, {
       method: 'POST',
       headers,
-      body: requestBody,
+      body: JSON.stringify(requestJson),
     })
     const resJson = await res.json()
     return NextResponse.json({ data: resJson }, { status: res.status })
