@@ -35,7 +35,7 @@ jobs:
           cd backend
           uvicorn src.main:app &
       - name: Run Cypress e2e
-        run: npm run cypress:e2e
+        run: npm run cypress:run
         working-directory: ${{env.working-directory}}
   test_backend_job:
     runs-on: ubuntu-20.04
