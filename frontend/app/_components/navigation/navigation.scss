@@ -4,6 +4,7 @@ nav {
   display: flex;
   justify-content: flex-start;
   padding: $smaller-spacing;
+  margin: 0 $larger-spacing;
 
   .nav-item {
     font-weight: $font-weight-bold;
