@@ -3,7 +3,7 @@ describe('User can create post', function () {
     cy.clearLocalStorageSnapshot()
     cy.request('GET', 'http://localhost:8000/test/clear-db')
     cy.request('GET', 'http://localhost:8000/test/add-users')
-    cy.visit('http://localhost:3001/sign-in')
+    cy.visit('http://localhost:3000/sign-in')
     cy.get('#auth-email').type('test@email.com')
     cy.get('#auth-password').type('super-secret')
     cy.get('#auth-submit').click()
@@ -23,7 +23,7 @@ describe('User can create post', function () {
   })
 
   it("Another user won't see a private post", function () {
-    cy.visit('http://localhost:3001/sign-in')
+    cy.visit('http://localhost:3000/sign-in')
     cy.get('#auth-email').type('test_2@email.com')
     cy.get('#auth-password').type('another-secret')
     cy.get('#auth-submit').click()
@@ -32,7 +32,7 @@ describe('User can create post', function () {
   })
 
   it('User can update post', function () {
-    cy.visit('http://localhost:3001/sign-in')
+    cy.visit('http://localhost:3000/sign-in')
     cy.get('#auth-email').type('test@email.com')
     cy.get('#auth-password').type('super-secret')
     cy.get('#auth-submit').click()
@@ -49,7 +49,7 @@ describe('User can create post', function () {
 
   it('User can delete post', function () {
     cy.restoreLocalStorage()
-    cy.visit('http://localhost:3001/user-page')
+    cy.visit('http://localhost:3000/user-page')
     cy.get('#delete-post-btn').click()
     cy.get('.userposts-item').should('not.exist')
   })

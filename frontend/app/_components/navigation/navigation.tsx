@@ -22,7 +22,7 @@ const Navigation = () => {
   }
 
   return (
-    <nav>
+    <nav className="navbar-container">
       <Link className="nav-item" href="/">
         Home
       </Link>

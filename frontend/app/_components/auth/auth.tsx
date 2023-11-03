@@ -62,7 +62,7 @@ const Auth: React.FC<IAuthProps> = ({ type }) => {
       <header>
         <h1>{type}</h1>
       </header>
-      <form onSubmit={onSubmit}>
+      <form className="auth-container__form" onSubmit={onSubmit}>
         <fieldset>
           {type === 'Register' && (
             <TextInput
