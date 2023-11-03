@@ -23,24 +23,29 @@ const Navigation = () => {
 
   return (
     <nav className="navbar-container">
-      <Link className="nav-item" href="/">
+      <Link id="home" className="nav-item" href="/">
         Home
       </Link>
       {typeof authDetails === 'object' && authDetails.accessToken ? (
         <>
-          <Link className="nav-item" href="/user-page">
+          <Link id="user-page" className="nav-item" href="/user-page">
             User page
           </Link>
-          <button className="nav-item" type="button" onClick={handleSignOut}>
+          <button
+            id="sign-out"
+            className="nav-item"
+            type="button"
+            onClick={handleSignOut}
+          >
             Sign out
           </button>
         </>
       ) : (
         <>
-          <Link className="nav-item" href="/sign-in">
+          <Link id="sign-in" className="nav-item" href="/sign-in">
             Sign in
           </Link>
-          <Link className="nav-item" href="/register">
+          <Link id="register" className="nav-item" href="/register">
             Register
           </Link>
         </>

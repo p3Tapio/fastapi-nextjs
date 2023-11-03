@@ -9,12 +9,12 @@ describe('Navbar items', function () {
 
   it('Contains sign in and register links when unauthenticated', function () {
     cy.visit('http://localhost:3000/')
-    cy.get('.navbar-container').contains('Sign in')
-    cy.get('.navbar-container').contains('Register')
+    cy.get('#sign-in').should('exist')
+    cy.get('#register').should('exist')
   })
   it('Does not contain user page when unauthenticated', function () {
     cy.visit('http://localhost:3000/')
-    cy.get('.navbar-container').contains('User page').should('not.exist')
+    cy.get('#user-page').should('not.exist')
   })
 })
 
@@ -35,7 +35,7 @@ describe('Register', function () {
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-password-again').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.get('.navbar-container').contains('User page')
+    cy.get('#user-page').should('exist')
   })
   it("User can't register without username", function () {
     cy.visit('http://localhost:3000/register')
@@ -64,19 +64,19 @@ describe('Sign in', function () {
   })
   it('User can sign in', function () {
     cy.visit('http://localhost:3000/sign-in')
-    cy.get('.navbar-container').contains('User page').should('not.exist')
+    cy.get('#user-page').should('not.exist')
     cy.get('#auth-email').type('example@user.com')
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.get('.navbar-container').contains('User page')
+    cy.get('#user-page').should('exist')
   })
   it("User can't sign in with wrong details", function () {
     cy.visit('http://localhost:3000/sign-in')
-    cy.get('.navbar-container').contains('User page').should('not.exist')
+    cy.get('#user-page').should('not.exist')
     cy.get('#auth-email').type('wrong@user.com')
     cy.get('#auth-password').type('invalid')
     cy.get('#auth-submit').click()
-    cy.get('.navbar-container').contains('User page').should('not.exist')
+    cy.get('#user-page').should('not.exist')
     cy.get('.auth-container__error-message').contains(
       'Sign in failed. Try again.'
     )

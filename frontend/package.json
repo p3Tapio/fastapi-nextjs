@@ -17,6 +17,7 @@
     "build:front": "next telemetry disable && next build",
     "build:back": "cd ../backend && docker build -t backend . --no-cache",
     "start:build": "next telemetry disable && next start",
+    "build:serve" : "npm run build:front && npm run start:build",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:e2e": "npm-run-all -p -r start:build cypress:run",
