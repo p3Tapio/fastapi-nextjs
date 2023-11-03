@@ -35,7 +35,6 @@ describe('Register', function () {
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-password-again').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.wait(500)
     cy.get('.navbar-container').contains('User page')
   })
   it("User can't register without username", function () {
@@ -69,7 +68,6 @@ describe('Sign in', function () {
     cy.get('#auth-email').type('example@user.com')
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.wait(500)
     cy.get('.navbar-container').contains('User page')
   })
   it("User can't sign in with wrong details", function () {
