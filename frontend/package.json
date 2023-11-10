@@ -20,7 +20,7 @@
     "build:serve": "npm run build:front && npm run start:build",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:e2e": "start-server-and-test start:build http://localhost:3000 cypress:run",
+    "cypress:e2e": "npm-run-all -p -r start:build cypress:run",
     "build:test:back": "npm run build:backend && npm run test:back:docker",
     "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn src.main:app",
     "test:local": "npm-run-all -p -r start:back:test build:serve cypress:open",
