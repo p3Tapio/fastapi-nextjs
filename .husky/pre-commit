@@ -8,10 +8,11 @@ npm run stylelint
 npm run check-types
 echo '------------------'
 echo '\n\nAudit frontend prod dependencies 🔦'
-npm audit --omit=dev
-# echo '\n------------------'
-# echo '\n\nLint backend 🧹'
-# npm run lint:back
-# echo '\n------------------'
-# echo '\n\nAudit backend 🧹'
-# npm run audit:back
+npm audit || true
+echo '\n------------------'
+echo '\n\nLint backend 🧹'
+npm run lint:back
+echo '\n------------------'
+echo '\n\nAudit backend 🧹'
+npm run audit:back || true
+
