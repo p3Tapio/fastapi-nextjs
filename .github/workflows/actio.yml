@@ -37,6 +37,11 @@ jobs:
       - name: Run Cypress e2e
         run: npm run cypress:e2e
         working-directory: ${{env.working-directory}}
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots
+          path: frontend/cypress/screenshots/auth
   test_backend_job:
     runs-on: ubuntu-20.04
     env:

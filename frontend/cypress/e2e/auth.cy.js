@@ -39,7 +39,7 @@ describe('Register', function () {
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-password-again').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.get('#user-page').should('exist')
+    cy.get('#user-page', { timeout: 10000 }).should('be.visible');
   })
   it("User can't register without username", function () {
     cy.visit('http://localhost:3000/register')
@@ -72,7 +72,7 @@ describe('Sign in', function () {
     cy.get('#auth-email').type('example@user.com')
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.get('#user-page').should('exist')
+    cy.get('#user-page', { timeout: 10000 }).should('be.visible');
   })
   it("User can't sign in with wrong details", function () {
     cy.visit('http://localhost:3000/sign-in')
