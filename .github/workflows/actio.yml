@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cypress-screenshots
-          path: frontend/cypress/screenshots/auth
+          path: frontend/cypress/screenshots/auth.cy.js
   test_backend_job:
     runs-on: ubuntu-20.04
     env:

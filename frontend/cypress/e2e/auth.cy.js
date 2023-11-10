@@ -72,7 +72,9 @@ describe('Sign in', function () {
     cy.get('#auth-email').type('example@user.com')
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-submit').click()
+    cy.screenshot('after-submit-click');
     cy.get('#user-page', { timeout: 10000 }).should('be.visible');
+    cy.screenshot('after-submit-click-2');
   })
   it("User can't sign in with wrong details", function () {
     cy.visit('http://localhost:3000/sign-in')
