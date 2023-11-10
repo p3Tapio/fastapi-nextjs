@@ -35,6 +35,8 @@ jobs:
           cd backend
           uvicorn src.main:app &
       - name: Run Cypress e2e
+        env: 
+          API_URL: 'http://127.0.0.1:8000'
         run: npm run cypress:e2e || true
         working-directory: ${{env.working-directory}}
       - name: Upload Screenshots
