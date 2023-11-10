@@ -37,10 +37,10 @@ jobs:
       - name: Run Cypress e2e
         env: 
           API_URL: 'http://127.0.0.1:8000'
-        run: npm run cypress:e2e || true
+        run: npm run cypress:e2e
         working-directory: ${{env.working-directory}}
       - name: Upload Screenshots
-        if: ${{ always() }}
+        if: failure()
         uses: actions/upload-artifact@v2
         with:
           name: cypress-screenshots

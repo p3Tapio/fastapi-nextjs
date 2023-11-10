@@ -3,10 +3,6 @@ describe('Navbar items', function () {
     cy.request('GET', 'http://localhost:8000/test/clear-db')
   })
 
-  beforeEach(() => {
-    cy.viewport(1280, 720)
-  })
-
   after(() => {
     cy.request('GET', 'http://localhost:8000/test/clear-db')
   })
@@ -39,7 +35,7 @@ describe('Register', function () {
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-password-again').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.get('#user-page', { timeout: 10000 }).should('be.visible');
+    cy.get('#user-page').should('be.visible')
   })
   it("User can't register without username", function () {
     cy.visit('http://localhost:3000/register')
@@ -72,9 +68,7 @@ describe('Sign in', function () {
     cy.get('#auth-email').type('example@user.com')
     cy.get('#auth-password').type('secret-salasana')
     cy.get('#auth-submit').click()
-    cy.screenshot('after-submit-click');
-    cy.get('#user-page', { timeout: 10000 }).should('be.visible');
-    cy.screenshot('after-submit-click-2');
+    cy.get('#user-page').should('be.visible')
   })
   it("User can't sign in with wrong details", function () {
     cy.visit('http://localhost:3000/sign-in')
