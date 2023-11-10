@@ -2,7 +2,11 @@ describe('Navbar items', function () {
   before(() => {
     cy.request('GET', 'http://localhost:8000/test/clear-db')
   })
-  
+
+  beforeEach(() => {
+    cy.viewport(1280, 720)
+  })
+
   after(() => {
     cy.request('GET', 'http://localhost:8000/test/clear-db')
   })
@@ -77,8 +81,6 @@ describe('Sign in', function () {
     cy.get('#auth-password').type('invalid')
     cy.get('#auth-submit').click()
     cy.get('#user-page').should('not.exist')
-    cy.get('.auth-container__error-message').contains(
-      'Sign in failed. Try again.'
-    )
+    cy.get('.auth-container__error-message').contains('Sign in failed. Try again.')
   })
 })
