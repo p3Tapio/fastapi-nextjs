@@ -1,0 +1,34 @@
+@import './variables.modules';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  color: $font-color;
+  font-family: $font-inter;
+
+  h1 {
+    font-size: $font-size-largest;
+    margin: 10px 0;
+  }
+
+  p {
+    font-size: $font-size-regular;
+    margin: 4px 0;
+  }
+
+  main {
+    flex: 1 0 auto;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 840px;
+  }
+}

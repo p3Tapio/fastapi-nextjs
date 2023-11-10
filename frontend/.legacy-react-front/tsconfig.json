@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "es6",
+    "strict": true,
+    "removeComments": false, // if true, webpackChunkname wont work.
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "baseUrl": "src",
+    "lib": ["ES6", "dom", "dom.iterable"],
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    ".vscode",
+    "cypress",
+    "cypress.config.ts",
+    ".legacy"
+  ],
+  "include": ["src"]
+}

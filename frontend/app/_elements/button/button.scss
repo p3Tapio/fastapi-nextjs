@@ -1,0 +1,35 @@
+@import '../../_style/variables.modules';
+
+.button {
+  font-family: $font-inter;
+  font-size: $font-size-smaller;
+  border: 1px solid rgba($color, 0.4);
+  border-radius: 2px;
+  box-shadow: $shadow-button-regular;
+  min-width: 80px;
+  height: calc(22px + 0.5vw);
+  padding: 1px $default-spacing;
+
+  &:disabled {
+    background-color: $lightest-gray;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: $shadow-button-hover;
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: $shadow-button-regular;
+  }
+}
+
+.button-primary {
+  background-color: rgb(255 255 255);
+}
+
+.button-secondary {
+  background-color: rgb(226 226 242);
+}

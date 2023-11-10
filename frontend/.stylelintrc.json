@@ -1,13 +1,7 @@
 {
-  "extends": [
-    "stylelint-config-standard-scss",
-    "stylelint-config-prettier-scss"
-  ],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
   "rules": {
-    "selector-pseudo-class-no-unknown": [
-      true,
-      { "ignorePseudoClasses": ["export"] }
-    ],
+    "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["export"] }],
     "property-no-unknown": [true, { "ignoreProperties": ["font_color"] }]
   }
 }

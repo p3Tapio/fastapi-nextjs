@@ -10,3 +10,4 @@ __pycache__
 app.db
 app.test.db
 .pytest_cache
+.next/

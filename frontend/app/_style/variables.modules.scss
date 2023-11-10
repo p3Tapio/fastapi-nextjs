@@ -1,0 +1,35 @@
+// COLORS
+$font-color: #221822; // rgba(74,29,74);
+$font-color-secondary: #5e315e;
+$light-gray: #bababa;
+$lightest-gray: #f1f1f1;
+$warning-red: #df0000;
+
+// BREAKPOINTS
+$breakpoint-narrow: 480px;
+$breakpoint-middle: 768px;
+$breakpoint-wide: 992px;
+
+// SPACING
+$smaller-spacing: calc(4px + 0.4vw);
+$default-spacing: calc(8px + 0.8vw);
+$larger-spacing: calc(12px + 1vw);
+
+// SHADOWS
+$shadow-card: -4px 4px 19px -2px rgba($font-color, 0.5);
+$shadow-button-regular: -2px 3px 5px -2px rgba($font-color, 0.3);
+$shadow-button-hover: -3px 5px 8px -4px rgba($font-color, 0.6);
+
+// FONT
+$font-inter: 'Inter', sans-serif;
+$font-size-largest: calc(36px + 1.4vw);
+$font-size-larger: calc(18px + 0.6vw);
+$font-size-regular: calc(14px + 0.2vw);
+$font-size-smaller: calc(12px + 0.2vw);
+$font-weight-normal: 400;
+$font-weight-bold: 600;
+$color: $font-color;
+
+:export {
+  font_color: $font-color;
+}
