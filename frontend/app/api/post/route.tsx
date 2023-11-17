@@ -3,7 +3,7 @@ import { headers as getHeadersFromRequest } from 'next/headers'
 import { IPostBase } from '../../_types/post'
 
 const apiUrl = process.env.API_URL
-const baseUrl = `${apiUrl}/post`
+const baseUrl = `${apiUrl}/post/`
 const baseHeader = { 'content-type': 'application/json;charset=UTF-8' }
 
 // TODO middleware this?
@@ -21,7 +21,8 @@ const makeRequest = async (method: string, body?: IPostBase, query?: string) => 
   if (!headers) {
     throw new Error('Malformed request')
   }
-  const response = await fetch(`${baseUrl}${query || ''}`, {
+  const url = `${baseUrl}${query || ''}`
+  const response = await fetch(url, {
     method,
     headers,
     ...(body ? { body: JSON.stringify(body) } : {}),
@@ -63,7 +64,7 @@ export async function DELETE(request: Request) {
   try {
     const url = new URL(request.url)
     const id = url.searchParams.get('id')
-    return await makeRequest('DELETE', undefined, `/${id}`)
+    return await makeRequest('DELETE', undefined, `${id}`)
   } catch (e) {
     return NextResponse.json({ message: (e as Error).message }, { status: 500 })
   }
