@@ -12,7 +12,7 @@
     "lint:back": "cd ../backend && source .venv/bin/activate && black ./",
     "audit:back": "cd ../backend && pip-audit",
     "dev:front": "next telemetry disable && next dev",
-    "dev:back": "cd ../backend && source .venv/bin/activate && uvicorn src.main:app --reload",
+    "dev:back": "cd ../backend && source .venv/bin/activate && ENV=local uvicorn src.main:app --reload",
     "dev": "npm-run-all -p dev:front dev:back",
     "build:front": "next telemetry disable && next build",
     "build:back": "cd ../backend && docker build -t backend . --no-cache",

@@ -15,10 +15,13 @@ local_db_name = os.getenv("LOCAL_DB_NAME")
 db_url = ""
 if environment == "test":
     db_url = "sqlite:///./app.test.db"
-elif environment == "development":
+elif environment == "local":
     db_url = f"postgresql://{local_db_user}:{local_db_password}@{local_db_server}:{local_db_port}/{local_db_name}"
-else:
+elif environment == "production":
     db_url = "sqlite:///./app.db"
+else:
+    print("Missing environment definition. Shutting down.")
+    os.kill(os.getpid(), 15)
 
 
 env_variables = {
