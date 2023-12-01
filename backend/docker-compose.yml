@@ -7,8 +7,14 @@ services:
     ports: 
       - 8000:8000
     environment:
+      - ENV=${ENV}
       - SECRET_KEY=${SECRET_KEY}
       - ALGORITH=${ALGORITH}
       - ACCESS_TOKEN_EXPIRES_MINUTES=${ACCESS_TOKEN_EXPIRES_MINUTES}
       - PYTHONPATH=.
+      - LOCAL_DB_USER=${LOCAL_DB_USER}
+      - LOCAL_DB_PASSWORD=${LOCAL_DB_PASSWORD}
+      - LOCAL_DB_SERVER=${LOCAL_DB_SERVER}
+      - LOCAL_DB_PORT=${LOCAL_DB_PORT}
+      - LOCAL_DB_NAME=${LOCAL_DB_NAME}
     working_dir: /app

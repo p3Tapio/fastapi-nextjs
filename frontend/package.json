@@ -24,7 +24,8 @@
     "build:test:back": "npm run build:backend && npm run test:back:docker",
     "start:back:test": "cd ../backend && source .venv/bin/activate && ENV=test uvicorn src.main:app",
     "test:local": "npm-run-all -p -r start:back:test build:serve cypress:open",
-    "test:back:docker": "cd ../backend && docker-compose run -e ENV=test backend bash -c \"cd /app && pytest -v\""
+    "test:back:docker": "cd ../backend && docker-compose run -e ENV=test backend bash -c \"cd /app && pytest -v\"",
+    "docker:local": "cd ../backend && docker-compose up"
   },
   "keywords": [],
   "author": "",
@@ -60,3 +61,5 @@
     "stylelint-config-standard-scss": "^11.0.0"
   }
 }
+
+

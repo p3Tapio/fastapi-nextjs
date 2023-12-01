@@ -44,6 +44,7 @@ pip-requirements-parser==32.0.1
 pip_audit==2.6.1
 platformdirs==3.10.0
 pluggy==1.2.0
+psycopg2-binary==2.9.9
 py-serializable==0.11.1
 pyasn1==0.5.0
 pycodestyle==2.10.0
