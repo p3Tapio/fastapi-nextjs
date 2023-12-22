@@ -24,7 +24,6 @@ def create_users(db: Session = Depends(get_db)):
         return {"status": status.HTTP_201_CREATED, "message": "Users created"}
 
     except Exception as e:
-        print(e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
         )
