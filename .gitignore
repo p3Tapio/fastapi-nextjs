@@ -11,3 +11,4 @@ app.db
 app.test.db
 .pytest_cache
 .next/
+memo-to-myself.sh

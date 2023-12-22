@@ -9,9 +9,14 @@ import logging
 
 ENV = env_variables["environment"]
 
-Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+def start_it_up():
+    app = FastAPI()
+    Base.metadata.create_all(bind=engine)
+    return app
+
+
+app = start_it_up()
 
 app.add_middleware(
     CORSMiddleware,
