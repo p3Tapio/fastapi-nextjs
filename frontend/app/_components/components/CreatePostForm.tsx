@@ -18,6 +18,7 @@ const PostForm: React.FC<IPostFormProps> = ({
 }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [isPublic, setIsPublic] = useState(false)
   const dispatch = useAppDispatch()
   const { authDetails } = useContext(AuthContext)
 
@@ -27,7 +28,10 @@ const PostForm: React.FC<IPostFormProps> = ({
       if (typeof authDetails === 'object') {
         const { accessToken } = authDetails
         await dispatch(
-          createPost({ token: accessToken, post: { title, description } })
+          createPost({
+            token: accessToken,
+            post: { title, description, public: isPublic },
+          })
         ).unwrap()
         // TODO show message create tjsp, setResult?
         setShowForm(false)
@@ -50,6 +54,7 @@ const PostForm: React.FC<IPostFormProps> = ({
           id: postToUpdate.id,
           title: postToUpdate.title,
           description: postToUpdate.description,
+          public: postToUpdate.public,
         }
         const { accessToken } = authDetails
         await dispatch(updatePost({ token: accessToken, post })).unwrap()
@@ -74,6 +79,12 @@ const PostForm: React.FC<IPostFormProps> = ({
       setPostToUpdate({ ...postToUpdate, description: value })
     }
   }
+  const setIsUpdatedPublic = (value: boolean) => {
+    if (postToUpdate) {
+      setPostToUpdate({ ...postToUpdate, public: value })
+    }
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (postToUpdate) {
       updateOldPost(e)
@@ -100,7 +111,22 @@ const PostForm: React.FC<IPostFormProps> = ({
         value={postToUpdate?.description || description}
         setValue={postToUpdate ? setUpdatedDescription : setDescription}
       />
-
+      {/* TODO: create element and fix styling */}
+      <div style={{ marginBottom: '7px' }}>
+        <label htmlFor="new-post-is-public">
+          Public post?
+          <input
+            type="checkbox"
+            id="new-post-is-public"
+            checked={postToUpdate?.public || isPublic}
+            onChange={() => {
+              return postToUpdate
+                ? setIsUpdatedPublic(!postToUpdate.public)
+                : setIsPublic(!isPublic)
+            }}
+          />
+        </label>
+      </div>
       <button
         onClick={() => {
           setShowForm(false)

@@ -1,6 +1,7 @@
 export interface IPostBase {
   title: string
   description: string
+  public: boolean
 }
 
 export interface IPostUpdate extends IPostBase {
