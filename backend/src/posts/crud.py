@@ -5,7 +5,10 @@ from ..users import schema as user_schema
 
 def create_post(db: Session, post: schema.PostCreate, user: user_schema.User):
     db_post = model.Post(
-        title=post.title, description=post.description, owner_id=user.id
+        title=post.title,
+        description=post.description,
+        public=post.public,
+        owner_id=user.id,
     )
     db.add(db_post)
     db.commit()
@@ -28,6 +31,7 @@ def get_user_post_by_id(db: Session, post_id: int, user: user_schema.User):
 def update_post(db: Session, db_post: schema.Post, post: schema.Post):
     db_post.title = post.title
     db_post.description = post.description
+    db_post.public = post.public
     db.commit()
     # get -- retrieve a single record by its primary key.
     return db.query(model.Post).get(post.id)

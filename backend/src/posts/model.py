@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from ..db import Base
 
@@ -11,6 +11,7 @@ class Post(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     description = Column(String)
+    public = Column(Boolean, default=False)
     owner_id = Column(Integer, ForeignKey("users.id"), index=True)
 
     owner = relationship("User", back_populates="posts")
