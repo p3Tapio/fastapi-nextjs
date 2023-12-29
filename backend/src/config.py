@@ -12,7 +12,6 @@ db_url = ""
 if environment == "test":
     db_url = "sqlite:///./app.test.db"
 elif environment == "local":
-    print(local_db_connection_string)
     db_url = local_db_connection_string
 elif environment == "production":
     db_url = "sqlite:///./app.db"  # TODO
