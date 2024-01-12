@@ -3,6 +3,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import userPostReducer from './userPost/userPostSlice'
+import publicPostReducer from './publicPost/publicPostSlice'
 
 declare const window: Window & {
   __REDUX_DEVTOOLS_EXTENSION__?: {
@@ -15,6 +16,7 @@ declare const window: Window & {
 export const store = configureStore({
   reducer: {
     userPosts: userPostReducer,
+    publicPosts: publicPostReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 })
@@ -32,4 +34,5 @@ export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = () => {
   return useDispatch<AppDispatch>()
 }
+
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

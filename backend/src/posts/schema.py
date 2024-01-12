@@ -10,7 +10,7 @@ class PostBase(BaseModel):
 
 
 class PostCreate(PostBase):
-    public: bool
+    public: bool = False
     pass
 
 
@@ -19,8 +19,10 @@ class PostUpdate(PostBase):
     id: int
 
 
+# TODO Rename this for clarity (e.g. UserPost)
 class Post(PostBase):
     id: int
+    public: bool
     owner_id: int
 
     class Config:

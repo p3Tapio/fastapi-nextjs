@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import TextInput from '../../_elements/textInput/textInput'
-import { createPost, updatePost } from '../../_state/post/postSlice'
+import { createPost, updatePost } from '../../_state/userPost/userPostSlice'
 import { useAppDispatch } from '../../_state/store'
 import { AuthContext } from '../../_state/user/authContext'
-import { IPost } from '../../_types/post'
+import { IUserPost } from '../../_types/post'
 
 interface IPostFormProps {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
-  setPostToUpdate: React.Dispatch<React.SetStateAction<IPost | undefined>>
-  postToUpdate: IPost | undefined
+  setPostToUpdate: React.Dispatch<React.SetStateAction<IUserPost | undefined>>
+  postToUpdate: IUserPost | undefined
 }
 
 const PostForm: React.FC<IPostFormProps> = ({
