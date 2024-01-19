@@ -42,17 +42,17 @@ const UserPage = () => {
       >
         {showForm ? 'Show posts' : 'Create new post'}
       </button>
-      <React.Suspense fallback={<>...</>}>
-        {showForm || postToUpdate ? (
-          <CreatePostForm
-            setShowForm={setShowForm}
-            setPostToUpdate={setPostToUpdate}
-            postToUpdate={postToUpdate}
-          />
-        ) : (
-          <UserPosts setPostToUpdate={setPostToUpdate} />
-        )}
-      </React.Suspense>
+      {/* <React.Suspense fallback={<>...</>}> */}
+      {showForm || postToUpdate ? (
+        <CreatePostForm
+          setShowForm={setShowForm}
+          setPostToUpdate={setPostToUpdate}
+          postToUpdate={postToUpdate}
+        />
+      ) : (
+        <UserPosts setPostToUpdate={setPostToUpdate} />
+      )}
+      {/* </React.Suspense> */}
     </div>
   )
 }
