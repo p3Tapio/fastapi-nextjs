@@ -28,6 +28,18 @@ def get_user_posts(
     return db_posts
 
 
+@post_router.get("/public", response_model=list[schema.PostPublic])
+def get_public_posts(db: Session = Depends(get_db)):
+    try:
+        db_posts = crud.get_public_posts(db=db)
+        return db_posts
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
+        )
+
+
 @post_router.put("/")
 def update_post(
     post: schema.PostUpdate,

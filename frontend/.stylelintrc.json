@@ -2,6 +2,10 @@
   "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
   "rules": {
     "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["export"] }],
-    "property-no-unknown": [true, { "ignoreProperties": ["font_color"] }]
+    "property-no-unknown": [true, { "ignoreProperties": ["font_color"] }],
+    "selector-class-pattern": [
+      "^[a-z0-9\\-]+(__[a-z0-9\\-]+)?(--[a-z0-9\\-]+)?$",
+      { "resolveNestedSelectors": true }
+    ]
   }
 }

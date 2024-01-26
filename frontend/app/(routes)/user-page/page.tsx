@@ -4,14 +4,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { redirect } from 'next/navigation'
 import { AuthContext } from '../../_state/user/authContext'
 import { useAppDispatch } from '../../_state/store'
-import { IPost } from '../../_types/post'
-import { getUserPosts } from '../../_state/post/postSlice'
+import { IUserPost } from '../../_types/post'
+import { getUserPosts } from '../../_state/userPost/userPostSlice'
 import CreatePostForm from '../../_components/components/CreatePostForm'
 import UserPosts from '../../_components/components/UserPosts'
 
 const UserPage = () => {
   const [showForm, setShowForm] = useState(false)
-  const [postToUpdate, setPostToUpdate] = useState<IPost | undefined>(undefined)
+  const [postToUpdate, setPostToUpdate] = useState<IUserPost | undefined>(undefined)
   const dispatch = useAppDispatch()
   const { authDetails } = useContext(AuthContext)
 
@@ -42,17 +42,17 @@ const UserPage = () => {
       >
         {showForm ? 'Show posts' : 'Create new post'}
       </button>
-      <React.Suspense fallback={<>...</>}>
-        {showForm || postToUpdate ? (
-          <CreatePostForm
-            setShowForm={setShowForm}
-            setPostToUpdate={setPostToUpdate}
-            postToUpdate={postToUpdate}
-          />
-        ) : (
-          <UserPosts setPostToUpdate={setPostToUpdate} />
-        )}
-      </React.Suspense>
+      {/* <React.Suspense fallback={<>...</>}> */}
+      {showForm || postToUpdate ? (
+        <CreatePostForm
+          setShowForm={setShowForm}
+          setPostToUpdate={setPostToUpdate}
+          postToUpdate={postToUpdate}
+        />
+      ) : (
+        <UserPosts setPostToUpdate={setPostToUpdate} />
+      )}
+      {/* </React.Suspense> */}
     </div>
   )
 }

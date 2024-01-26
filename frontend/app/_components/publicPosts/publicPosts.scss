@@ -1,0 +1,76 @@
+@import '../../_style/variables.modules';
+
+.public-posts {
+  &__posts {
+    margin-top: $default-spacing;
+
+    &-item {
+      padding: $default-spacing $smaller-spacing;
+      border-top: 1px solid $light-gray;
+
+      &-title {
+        font-size: $font-size-regular;
+        margin-bottom: $smaller-spacing;
+      }
+
+      &-description {
+        font-size: $font-size-smaller;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &-author {
+        font-size: $font-size-smaller;
+        margin-top: $smaller-spacing;
+      }
+
+      &:last-of-type {
+        border-bottom: 1px solid $light-gray;
+      }
+    }
+  }
+
+  &-skeletor {
+    position: relative;
+    color: transparent;
+    background: linear-gradient(90deg, $white 25%, $lightest-gray 60%, $white 75%);
+    background-size: 200% 100%;
+    animation: loading 1.2s infinite;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent, $white);
+      pointer-events: none;
+    }
+
+    & .public-posts__posts-item {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          $white 0%,
+          transparent 15%,
+          transparent 85%,
+          $white 100%
+        );
+      }
+    }
+  }
+
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { IPost, IPostBase, IPostState, IPostUpdate } from '../../_types/post'
+import { IUserPost, IUserPostState, IPostUpdate, IPostCreate } from '../../_types/post'
 import {
   handleCreatePost,
   handleDeletePost,
@@ -7,15 +7,14 @@ import {
   handleUpdatePost,
 } from './api'
 
-const initialState: IPostState = {
-  userPosts: {},
+const initialState: IUserPostState = {
+  posts: {},
   status: 'READY',
   error: false,
-  //   publicPosts TODO
 }
 
 export const getUserPosts = createAsyncThunk<
-  IPost[],
+  IUserPost[],
   { token: string },
   { rejectValue: { status: number; message: string } }
 >('posts/get_userposts', async (params: { token: string }, { rejectWithValue }) => {
@@ -33,12 +32,12 @@ export const getUserPosts = createAsyncThunk<
 })
 
 export const createPost = createAsyncThunk<
-  IPost,
-  { token: string; post: IPostBase },
+  IUserPost,
+  { token: string; post: IPostCreate },
   { rejectValue: { status: number; message: string } }
 >(
   'posts/createpost',
-  async (params: { token: string; post: IPostBase }, { rejectWithValue }) => {
+  async (params: { token: string; post: IPostCreate }, { rejectWithValue }) => {
     const { token, post } = params
     const response = await handleCreatePost(token, post)
 
@@ -54,7 +53,7 @@ export const createPost = createAsyncThunk<
 )
 
 export const updatePost = createAsyncThunk<
-  { message: string; updatedPost: IPost },
+  { message: string; updatedPost: IUserPost },
   { token: string; post: IPostUpdate },
   { rejectValue: { status: number; message: string } }
 >(
@@ -95,7 +94,7 @@ export const delelePost = createAsyncThunk<
   }
 )
 
-const postSlice = createSlice({
+const userPostSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
@@ -109,10 +108,10 @@ const postSlice = createSlice({
       return { ...state, status: 'LOADING' }
     })
     builder.addCase(createPost.fulfilled, (state, action) => {
-      const post: IPost = action.payload
+      const post: IUserPost = action.payload
       return {
         ...state,
-        userPosts: { ...state.userPosts, [post.id]: post },
+        posts: { ...state.posts, [post.id]: post },
         status: 'READY',
       }
     })
@@ -126,12 +125,12 @@ const postSlice = createSlice({
       return { ...state, status: 'LOADING' }
     })
     builder.addCase(getUserPosts.fulfilled, (state, action) => {
-      const posts: IPost[] | [] = action.payload
-      const userPosts = posts.reduce<{ [key: number]: IPost }>((acc, post) => {
+      const posts: IUserPost[] | [] = action.payload
+      const userPosts = posts.reduce<{ [key: number]: IUserPost }>((acc, post) => {
         acc[post.id] = post
         return acc
       }, {})
-      return { ...state, userPosts, status: 'READY' }
+      return { ...state, posts: userPosts, status: 'READY' }
     })
     builder.addCase(getUserPosts.rejected, (state, action) => {
       const error = action.payload || false
@@ -146,7 +145,7 @@ const postSlice = createSlice({
       const { updatedPost } = action.payload
       return {
         ...state,
-        userPosts: { ...state.userPosts, [updatedPost.id]: updatedPost },
+        posts: { ...state.posts, [updatedPost.id]: updatedPost },
         status: 'READY',
       }
     })
@@ -162,10 +161,10 @@ const postSlice = createSlice({
     builder.addCase(delelePost.fulfilled, (state, action) => {
       const { id } = action.payload
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [id]: unused, ...posts } = state.userPosts
+      const { [id]: unused, ...posts } = state.posts
       return {
         ...state,
-        userPosts: posts,
+        posts,
         status: 'READY',
       }
     })
@@ -176,5 +175,5 @@ const postSlice = createSlice({
   },
 })
 
-export const { clearUserPostsFromState } = postSlice.actions
-export default postSlice.reducer
+export const { clearUserPostsFromState } = userPostSlice.actions
+export default userPostSlice.reducer
