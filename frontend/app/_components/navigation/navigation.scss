@@ -17,5 +17,7 @@ nav {
     text-decoration: none;
     margin-right: $smaller-spacing;
     padding: 5px 10px;
+    min-width: 100px;
+    text-align: center;
   }
 }
