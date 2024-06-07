@@ -5,6 +5,7 @@ import { AuthContext } from '../../_state/user/authContext'
 import { IUserPost } from '../../_types/post'
 
 import './user-components.scss'
+import { removePrivatePost } from '../../_state/publicPost/publicPostSlice'
 
 interface IUserPosts {
   setPostToUpdate: React.Dispatch<React.SetStateAction<IUserPost | undefined>>
@@ -26,6 +27,7 @@ const UserPosts: React.FC<IUserPosts> = ({ setPostToUpdate }) => {
         if (typeof authDetails === 'object' && authDetails) {
           const { accessToken } = authDetails
           await dispatch(deletePost({ token: accessToken, id: post.id })).unwrap()
+          if (post.public) dispatch(removePrivatePost(post.id))
         }
       } catch (error) {
         if (error && typeof error === 'object' && 'message' in error) {

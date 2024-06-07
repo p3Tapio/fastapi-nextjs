@@ -34,6 +34,7 @@ const PostForm: React.FC<IPostFormProps> = ({
             post: { title, description, public: isPublic },
           })
         ).unwrap()
+        if (isPublic) dispatch(addPublicPost({ title, description, public: isPublic }))
         // TODO show message create tjsp, setResult?
         setShowForm(false)
       }
