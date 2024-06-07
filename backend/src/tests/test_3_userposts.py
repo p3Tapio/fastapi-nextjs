@@ -71,6 +71,7 @@ def test_get_posts_with_correct_user():
             "description": "this is a test description",
             "id": 1,
             "owner_id": 1,
+            "public": False,
             "title": "test title",
         }
     ]
@@ -82,6 +83,7 @@ def test_update_post_with_wrong_user():
     updated_post = {
         "id": original_post_json[0]["id"],
         "title": "This is a new title",
+        "public": False,
         "description": "A different description",
     }
 
@@ -99,6 +101,7 @@ def test_update_post_with_correct_user():
     updated_post = {
         "id": original_post_json[0]["id"],
         "title": "This is a new title",
+        "public": True,
         "description": "A different description",
     }
     response = client.put("/post/", headers=headers, json=updated_post)
@@ -111,6 +114,7 @@ def test_update_post_with_correct_user():
             "id": 1,
             "owner_id": 1,
             "title": "This is a new title",
+            "public": True,
             "description": "A different description",
         },
     }

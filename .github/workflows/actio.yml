@@ -35,8 +35,8 @@ jobs:
           cd backend
           uvicorn src.main:app &
       - name: Run Cypress e2e
-        env: 
-          API_URL: 'http://127.0.0.1:8000'
+        env:
+          API_URL: "http://127.0.0.1:8000"
         run: npm run cypress:e2e
         working-directory: ${{env.working-directory}}
       - name: Upload Screenshots
@@ -60,6 +60,8 @@ jobs:
         with:
           python-version: 3.9.6
       - name: Run tests
+        env:
+          ENV: test
         run: |
-          docker-compose run -e ENV=test backend pytest -v
+          docker-compose run backend pytest -v
         working-directory: ${{env.working-directory}}

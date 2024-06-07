@@ -3,6 +3,7 @@ build
 db.json
 frontend/cypress/videos
 frontend/cypress/screenshots
+frontend/cypress/downloads
 .DS_Store
 .venv
 __pycache__

@@ -17,6 +17,8 @@ const Navigation = () => {
         <Link className="nav-item" href="/">
           Home
         </Link>
+        <div className="nav-item" />
+        <div className="nav-item" />
       </nav>
     )
   }

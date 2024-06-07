@@ -26,12 +26,14 @@ const makeRequest = async (method: string, body?: IPostBase, query?: string) => 
     method,
     headers,
     ...(body ? { body: JSON.stringify(body) } : {}),
+    cache: 'no-store',
   })
-  if (!response.ok) {
-    return NextResponse.json({ data: response.statusText }, { status: response.status })
+
+  if (response.ok) {
+    const responseJson = await response.json()
+    return NextResponse.json({ data: responseJson }, { status: response.status })
   }
-  const responseJson = await response.json()
-  return NextResponse.json({ data: responseJson }, { status: response.status })
+  return NextResponse.json({ data: response.statusText }, { status: response.status })
 }
 
 export async function POST(request: Request) {

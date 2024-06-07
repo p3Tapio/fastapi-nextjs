@@ -15,6 +15,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers,
       body: JSON.stringify(requestJson),
+      cache: 'no-store',
     })
     const resJson = await res.json()
     return NextResponse.json({ data: resJson }, { status: res.status })

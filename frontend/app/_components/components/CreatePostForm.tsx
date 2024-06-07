@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react'
 import TextInput from '../../_elements/textInput/textInput'
-import { createPost, updatePost } from '../../_state/post/postSlice'
+import { createPost, updatePost } from '../../_state/userPost/userPostSlice'
 import { useAppDispatch } from '../../_state/store'
 import { AuthContext } from '../../_state/user/authContext'
-import { IPost } from '../../_types/post'
+import { IUserPost } from '../../_types/post'
+import { addPublicPost, removePrivatePost } from '../../_state/publicPost/publicPostSlice'
 
 interface IPostFormProps {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
-  setPostToUpdate: React.Dispatch<React.SetStateAction<IPost | undefined>>
-  postToUpdate: IPost | undefined
+  setPostToUpdate: React.Dispatch<React.SetStateAction<IUserPost | undefined>>
+  postToUpdate: IUserPost | undefined
 }
 
 const PostForm: React.FC<IPostFormProps> = ({
@@ -18,6 +19,7 @@ const PostForm: React.FC<IPostFormProps> = ({
 }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [isPublic, setIsPublic] = useState(false)
   const dispatch = useAppDispatch()
   const { authDetails } = useContext(AuthContext)
 
@@ -27,8 +29,12 @@ const PostForm: React.FC<IPostFormProps> = ({
       if (typeof authDetails === 'object') {
         const { accessToken } = authDetails
         await dispatch(
-          createPost({ token: accessToken, post: { title, description } })
+          createPost({
+            token: accessToken,
+            post: { title, description, public: isPublic },
+          })
         ).unwrap()
+        if (isPublic) dispatch(addPublicPost({ title, description, public: isPublic }))
         // TODO show message create tjsp, setResult?
         setShowForm(false)
       }
@@ -50,9 +56,17 @@ const PostForm: React.FC<IPostFormProps> = ({
           id: postToUpdate.id,
           title: postToUpdate.title,
           description: postToUpdate.description,
+          public: postToUpdate.public,
         }
         const { accessToken } = authDetails
         await dispatch(updatePost({ token: accessToken, post })).unwrap()
+
+        if (!post.public) {
+          dispatch(removePrivatePost(post.id))
+        } else {
+          dispatch(addPublicPost(post))
+        }
+
         setPostToUpdate(undefined)
       }
     } catch (error) {
@@ -74,6 +88,12 @@ const PostForm: React.FC<IPostFormProps> = ({
       setPostToUpdate({ ...postToUpdate, description: value })
     }
   }
+  const setIsUpdatedPublic = (value: boolean) => {
+    if (postToUpdate) {
+      setPostToUpdate({ ...postToUpdate, public: value })
+    }
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (postToUpdate) {
       updateOldPost(e)
@@ -100,7 +120,22 @@ const PostForm: React.FC<IPostFormProps> = ({
         value={postToUpdate?.description || description}
         setValue={postToUpdate ? setUpdatedDescription : setDescription}
       />
-
+      {/* TODO: create element and fix styling */}
+      <div style={{ marginBottom: '7px' }}>
+        <label htmlFor="new-post-is-public">
+          Public post?
+          <input
+            type="checkbox"
+            id="new-post-is-public"
+            checked={postToUpdate?.public || isPublic}
+            onChange={() => {
+              return postToUpdate
+                ? setIsUpdatedPublic(!postToUpdate.public)
+                : setIsPublic(!isPublic)
+            }}
+          />
+        </label>
+      </div>
       <button
         onClick={() => {
           setShowForm(false)
