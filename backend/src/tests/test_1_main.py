@@ -1,4 +1,7 @@
 from src.tests.utils import client
+import sqlite3
+
+print("SQLITE: " + sqlite3.sqlite_version)
 
 
 # TOOD -- clear db after tests
