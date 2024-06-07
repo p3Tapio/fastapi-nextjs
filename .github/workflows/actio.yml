@@ -63,5 +63,5 @@ jobs:
         env:
           ENV: test
         run: |
-          docker-compose run -e backend pytest -v
+          docker-compose run backend pytest -v
         working-directory: ${{env.working-directory}}
