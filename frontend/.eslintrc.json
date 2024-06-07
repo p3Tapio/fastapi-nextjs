@@ -7,7 +7,10 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "args": "none", "varsIgnorePattern": "^_$" }
+    ],
     "react/jsx-props-no-spreading": ["warn"],
     "react/require-default-props": "off",
     "semi": ["warn", "never"],

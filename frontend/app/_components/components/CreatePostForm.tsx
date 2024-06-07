@@ -4,6 +4,7 @@ import { createPost, updatePost } from '../../_state/userPost/userPostSlice'
 import { useAppDispatch } from '../../_state/store'
 import { AuthContext } from '../../_state/user/authContext'
 import { IUserPost } from '../../_types/post'
+import { removePrivatePost } from '../../_state/publicPost/publicPostSlice'
 
 interface IPostFormProps {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -58,6 +59,7 @@ const PostForm: React.FC<IPostFormProps> = ({
         }
         const { accessToken } = authDetails
         await dispatch(updatePost({ token: accessToken, post })).unwrap()
+        if (!post.public) dispatch(removePrivatePost(post.id))
         setPostToUpdate(undefined)
       }
     } catch (error) {

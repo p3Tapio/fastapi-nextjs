@@ -73,7 +73,7 @@ export const updatePost = createAsyncThunk<
   }
 )
 
-export const delelePost = createAsyncThunk<
+export const deletePost = createAsyncThunk<
   { message: string; id: number },
   { token: string; id: number },
   { rejectValue: { status: number; message: string } }
@@ -155,20 +155,19 @@ const userPostSlice = createSlice({
     })
 
     // deletePost
-    builder.addCase(delelePost.pending, (state) => {
+    builder.addCase(deletePost.pending, (state) => {
       return { ...state, status: 'LOADING' }
     })
-    builder.addCase(delelePost.fulfilled, (state, action) => {
+    builder.addCase(deletePost.fulfilled, (state, action) => {
       const { id } = action.payload
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [id]: unused, ...posts } = state.posts
+      const { [id]: _, ...posts } = state.posts
       return {
         ...state,
         posts,
         status: 'READY',
       }
     })
-    builder.addCase(delelePost.rejected, (state, action) => {
+    builder.addCase(deletePost.rejected, (state, action) => {
       const error = action.payload || false
       return { ...state, status: 'ERROR', error }
     })

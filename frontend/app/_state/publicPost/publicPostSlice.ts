@@ -28,7 +28,15 @@ export const getPublicPosts = createAsyncThunk<
 const postSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    removePrivatePost(state, action) {
+      const { [action.payload]: _, ...posts } = state.posts
+      return {
+        ...state,
+        posts,
+      }
+    },
+  },
   extraReducers(builder) {
     builder.addCase(getPublicPosts.pending, (state) => {
       return { ...state, status: 'LOADING' }
@@ -48,4 +56,5 @@ const postSlice = createSlice({
   },
 })
 
+export const { removePrivatePost } = postSlice.actions
 export default postSlice.reducer

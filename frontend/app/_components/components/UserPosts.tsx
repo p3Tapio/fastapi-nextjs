@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { delelePost } from '../../_state/userPost/userPostSlice'
+import { deletePost } from '../../_state/userPost/userPostSlice'
 import { useAppSelector, useAppDispatch } from '../../_state/store'
 import { AuthContext } from '../../_state/user/authContext'
 import { IUserPost } from '../../_types/post'
@@ -25,7 +25,7 @@ const UserPosts: React.FC<IUserPosts> = ({ setPostToUpdate }) => {
       try {
         if (typeof authDetails === 'object' && authDetails) {
           const { accessToken } = authDetails
-          await dispatch(delelePost({ token: accessToken, id: post.id })).unwrap()
+          await dispatch(deletePost({ token: accessToken, id: post.id })).unwrap()
         }
       } catch (error) {
         if (error && typeof error === 'object' && 'message' in error) {
