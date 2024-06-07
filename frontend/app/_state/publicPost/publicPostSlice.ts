@@ -36,6 +36,10 @@ const postSlice = createSlice({
         posts,
       }
     },
+    addPublicPost(state, action) {
+      const { id } = action.payload
+      return { ...state, posts: { ...state.posts, [id]: action.payload } }
+    },
   },
   extraReducers(builder) {
     builder.addCase(getPublicPosts.pending, (state) => {
@@ -56,5 +60,5 @@ const postSlice = createSlice({
   },
 })
 
-export const { removePrivatePost } = postSlice.actions
+export const { removePrivatePost, addPublicPost } = postSlice.actions
 export default postSlice.reducer
