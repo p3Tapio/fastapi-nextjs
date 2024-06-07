@@ -9,9 +9,9 @@ describe('User can create post', function () {
     cy.get('#auth-submit').click()
   })
 
-  after(() => {
-    cy.request('GET', 'http://localhost:8000/test/clear-db')
-  })
+  // after(() => {
+  //   cy.request('GET', 'http://localhost:8000/test/clear-db')
+  // })
 
   it('User can create post', function () {
     cy.get('#toggle-posts').click()
@@ -29,6 +29,8 @@ describe('User can create post', function () {
     cy.get('#auth-submit').click()
     cy.get('.navbar-container').contains('User page')
     cy.get('.userposts-item').should('not.exist')
+    cy.visit('http://localhost:3000/')
+    cy.get('body').should('not.contain', 'Test title')
   })
 
   it('User can update post', function () {
@@ -52,5 +54,22 @@ describe('User can create post', function () {
     cy.visit('http://localhost:3000/user-page')
     cy.get('#delete-post-btn').click()
     cy.get('.userposts-item').should('not.exist')
+  })
+
+  it('User can make post public', function () {
+    cy.restoreLocalStorage()
+    cy.visit('http://localhost:3000/user-page')
+    cy.get('#toggle-posts').click()
+    cy.get('#new-post-title').type('Another test title')
+    cy.get('#new-post-description').type('Test description')
+    cy.get('#save-new-post').click()
+    cy.visit('http://localhost:3000/')
+    cy.get('body').should('not.contain', 'Another test title')
+    cy.visit('http://localhost:3000/user-page')
+    cy.get('#update-post-btn').click()
+    cy.get('#new-post-is-public').check()
+    cy.get('#save-new-post').click()
+    cy.get('#home').click()
+    cy.contains('Another test title')
   })
 })
